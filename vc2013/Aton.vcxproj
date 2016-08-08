@@ -212,14 +212,14 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ClInclude Include="..\include\Character.h" />
-    <ClInclude Include="..\include\CollisionTree.h" />
-    <ClInclude Include="..\include\Component.h" />
-    <ClInclude Include="..\include\Engine.h" />
-    <ClInclude Include="..\include\GameObject.h" />
-    <ClInclude Include="..\include\Renderer.h" />
-    <ClInclude Include="..\include\Resources.h" />
-    <ClInclude Include="..\include\Scene.h" />
+    <ClInclude Include="..\include\Character.hpp" />
+    <ClInclude Include="..\include\CollisionTree.hpp" />
+    <ClInclude Include="..\include\Component.hpp" />
+    <ClInclude Include="..\include\Engine.hpp" />
+    <ClInclude Include="..\include\GameObject.hpp" />
+    <ClInclude Include="..\include\Renderer.hpp" />
+    <ClInclude Include="..\include\Resources.hpp" />
+    <ClInclude Include="..\include\Scene.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
