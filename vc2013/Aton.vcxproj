@@ -200,27 +200,26 @@
   <ItemGroup>
     <ResourceCompile Include="Resources.rc" />
   </ItemGroup>
-  <ItemGroup />
-  <ItemGroup />
-  <ItemGroup>
-    <ClInclude Include="..\include\Resources.h" />
-    <ClInclude Include="Character.h" />
-    <ClInclude Include="CollisionTree.h" />
-    <ClInclude Include="Component.h" />
-    <ClInclude Include="GameObject.h" />
-    <ClInclude Include="Engine.h" />
-    <ClInclude Include="Renderer.h" />
-    <ClInclude Include="Scene.h" />
-  </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\AtonApp.cpp" />
-    <ClCompile Include="Character.cpp" />
-    <ClCompile Include="CollisionTree.cpp" />
-    <ClCompile Include="Component.cpp" />
-    <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="Renderer.cpp" />
-    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="..\src\Character.cpp" />
+    <ClCompile Include="..\src\CollisionTree.cpp" />
+    <ClCompile Include="..\src\Component.cpp" />
+    <ClCompile Include="..\src\Engine.cpp" />
+    <ClCompile Include="..\src\GameObject.cpp" />
+    <ClCompile Include="..\src\Renderer.cpp" />
+    <ClCompile Include="..\src\Scene.cpp" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ClInclude Include="..\include\Character.h" />
+    <ClInclude Include="..\include\CollisionTree.h" />
+    <ClInclude Include="..\include\Component.h" />
+    <ClInclude Include="..\include\Engine.h" />
+    <ClInclude Include="..\include\GameObject.h" />
+    <ClInclude Include="..\include\Renderer.h" />
+    <ClInclude Include="..\include\Resources.h" />
+    <ClInclude Include="..\include\Scene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
