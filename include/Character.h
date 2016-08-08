@@ -11,6 +11,8 @@ namespace Aton
   public:
     Character();
 
+    void update(float deltaTime);
+
   private:
     Renderer* mRendererP;
   };

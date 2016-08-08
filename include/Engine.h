@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <memory>
+#include <chrono>
 
 namespace Aton
 {
@@ -10,13 +11,23 @@ namespace Aton
 
   class Engine
   {
+
   public:
     Engine();
+    ~Engine();
 
-    void addObject(const std::shared_ptr<GameObject>& objectP);
+    void addObject(std::unique_ptr<GameObject> objectP);
+    void update();
 
   private:
-    std::vector<std::shared_ptr<GameObject>> mObjects;
+    std::vector<std::unique_ptr<GameObject>> mObjects;
     std::unique_ptr<CollisionTree> mCollisionTreeP;
+
+    using mytime_t = std::chrono::high_resolution_clock::time_point;
+    std::unique_ptr<mytime_t> lastUpdateTime;
+
+  private:
+    static mytime_t clockTime();
+    float timeSinceUpdate();
   };
 }

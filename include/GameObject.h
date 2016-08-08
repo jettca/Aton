@@ -25,6 +25,8 @@ namespace Aton
       mComponents.push_back(std::unique_ptr<C>(new C{ args... }));
       return static_cast<C*>(mComponents.back().get());
     }
+    
+    void updateComponents(float deltaTime);
 
   protected:
     Scene* mSceneP;

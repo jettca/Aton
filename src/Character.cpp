@@ -9,3 +9,8 @@ Character::Character()
 {
   mRendererP = addComponent<Renderer>();
 }
+
+void Character::update(float deltaTime)
+{
+  updateComponents(deltaTime);
+}
