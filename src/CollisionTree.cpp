@@ -1,4 +1,4 @@
-#include "CollisionTree.h"
+#include "CollisionTree.hpp"
 
 using namespace Aton;
 

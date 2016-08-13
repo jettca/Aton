@@ -1,5 +1,5 @@
-#include "GameObject.h"
-#include "Component.h"
+#include "GameObject.hpp"
+#include "Component.hpp"
 
 using namespace Aton;
 

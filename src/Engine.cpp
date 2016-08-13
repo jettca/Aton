@@ -1,6 +1,6 @@
-#include "Engine.h"
-#include "CollisionTree.h"
-#include "GameObject.h"
+#include "Engine.hpp"
+#include "CollisionTree.hpp"
+#include "GameObject.hpp"
 
 using namespace Aton;
 

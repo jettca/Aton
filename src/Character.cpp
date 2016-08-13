@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Character.h"
-#include "Renderer.h"
+#include "Character.hpp"
+#include "Renderer.hpp"
 
 using namespace Aton;
 

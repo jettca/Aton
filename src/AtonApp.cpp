@@ -8,8 +8,8 @@ using namespace ci;
 using namespace ci::app;
 using namespace std;
 
-#include "Engine.h"
-#include "Character.h"
+#include "Engine.hpp"
+#include "Character.hpp"
 
 class AtonApp : public App
 {

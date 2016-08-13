@@ -1,4 +1,4 @@
-#include "Component.h"
+#include "Component.hpp"
 
 using namespace Aton;
 

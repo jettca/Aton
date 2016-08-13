@@ -1,5 +1,5 @@
-#include "Scene.h"
-#include "CollisionTree.h"
+#include "Scene.hpp"
+#include "CollisionTree.hpp"
 
 using namespace Aton;
 
