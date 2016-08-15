@@ -1,17 +1,14 @@
 #pragma once
 
-#include "Component.hpp"
-
 namespace Aton
 {
-  class Renderer : public Component
+  class Sprite;
+
+  class Renderer
   {
   public:
-    void update(float deltaTime);
-
-  private:
     Renderer();
-
-    friend GameObject;
+    void draw();
+    void addSprite(const Sprite& sprite);
   };
 }

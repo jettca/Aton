@@ -5,5 +5,12 @@ using namespace Aton;
 Renderer::Renderer()
 {}
 
-void Renderer::update(float deltaTime)
-{}
+void Renderer::draw()
+{
+  // TODO: write this
+}
+
+void Renderer::addSprite(const Sprite& sprite)
+{
+  // TODO: write this
+}

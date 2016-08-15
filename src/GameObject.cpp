@@ -1,9 +1,11 @@
 #include "GameObject.hpp"
 #include "Component.hpp"
+#include "Engine.hpp"
 
 using namespace Aton;
 
-GameObject::GameObject()
+GameObject::GameObject(Engine* engineP)
+  : mEngineP{ engineP }
 {}
 
 GameObject::~GameObject()

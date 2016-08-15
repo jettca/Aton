@@ -1,13 +1,13 @@
 #pragma once
 
 #include "Character.hpp"
-#include "Renderer.hpp"
+#include "SpriteRenderer.hpp"
 
 using namespace Aton;
 
 Character::Character()
 {
-  mRendererP = addComponent<Renderer>();
+  mRendererP = addComponent<SpriteRenderer>();
 }
 
 void Character::update(float deltaTime)

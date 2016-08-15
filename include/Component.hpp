@@ -3,6 +3,7 @@
 namespace Aton
 {
   class GameObject;
+  class Engine;
 
   class Component
   {
@@ -11,6 +12,8 @@ namespace Aton
 
   protected:
     GameObject* mObjectP;
+    Engine* mEngineP;
+
     virtual void update(float deltaTime) = 0;
 
   private:

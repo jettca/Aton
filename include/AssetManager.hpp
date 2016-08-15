@@ -7,6 +7,7 @@ namespace Aton
 {
   using namespace std::experimental::filesystem::v1;
 
+  template<typename A>
   class AssetManager
   {
   private:
@@ -14,10 +15,10 @@ namespace Aton
 
   public:
     AssetManager(path assetRoot);
-    const std::vector<byte_t>& getData(path filepath);
+    A getBatch(path filepath);
 
   private:
     path mAssetRoot;
-    std::map<path, std::vector<byte_t>> mFilepathToData;
+    std::map<path, A> mFilepathToAsset;
   };
 }

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Renderer.hpp"
+
 #include <vector>
 #include <memory>
 #include <chrono>
@@ -18,6 +20,8 @@ namespace Aton
 
     void addObject(std::unique_ptr<GameObject> objectP);
     void update();
+
+    Renderer mRenderer;
 
   private:
     std::vector<std::unique_ptr<GameObject>> mObjects;

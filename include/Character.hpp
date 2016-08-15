@@ -4,7 +4,7 @@
 
 namespace Aton
 {
-  class Renderer;
+  class SpriteRenderer;
 
   class Character : public GameObject
   {
@@ -14,6 +14,6 @@ namespace Aton
     void update(float deltaTime);
 
   private:
-    Renderer* mRendererP;
+    SpriteRenderer* mRendererP;
   };
 }

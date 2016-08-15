@@ -25,6 +25,8 @@ void Engine::update()
   {
     objectP->update(deltaTime);
   }
+
+  mRenderer.draw();
 }
 
 Engine::mytime_t Engine::clockTime()
