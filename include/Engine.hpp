@@ -31,7 +31,7 @@ namespace Aton
     std::unique_ptr<CollisionTree> mCollisionTreeP;
 
     using mytime_t = std::chrono::high_resolution_clock::time_point;
-    std::unique_ptr<mytime_t> lastUpdateTime;
+    std::unique_ptr<mytime_t> mLastUpdateTimeP;
 
   private:
     static mytime_t clockTime();

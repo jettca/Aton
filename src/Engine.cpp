@@ -9,7 +9,7 @@ Engine::Engine()
   , mSpriteManager{ "" }
   , mObjects{}
   , mCollisionTreeP{ std::make_unique<CollisionTree>() }
-  , lastUpdateTime{ nullptr }
+  , mLastUpdateTimeP{ nullptr }
 {}
 
 Engine::~Engine()
@@ -41,12 +41,12 @@ float Engine::timeSinceUpdate()
   using namespace std::chrono;
 
   auto curTime = clockTime();
-  if (lastUpdateTime == nullptr)
-    lastUpdateTime = std::make_unique<mytime_t>(curTime);
+  if (mLastUpdateTimeP == nullptr)
+    mLastUpdateTimeP = std::make_unique<mytime_t>(curTime);
 
-  auto d = duration<float>{ curTime - *lastUpdateTime };
+  auto d = duration<float>{ curTime - *mLastUpdateTimeP };
 
-  *lastUpdateTime = curTime;
+  *mLastUpdateTimeP = curTime;
 
   return d.count();
 }
