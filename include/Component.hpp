@@ -11,7 +11,7 @@ namespace Aton
     Component();
 
   protected:
-    GameObject* mObjectP;
+    GameObject* mGameObjectP;
     Engine* mEngineP;
 
     virtual void update(float deltaTime) = 0;

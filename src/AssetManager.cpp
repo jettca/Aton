@@ -1,4 +1,7 @@
 #include "AssetManager.hpp"
+#include "Sprite.hpp"
+
+#include <cinder/app/App.h>
 
 using namespace Aton;
 
@@ -9,20 +12,15 @@ AssetManager<A>::AssetManager(path assetRoot)
 {}
 
 template<typename A>
-A AssetManager<A>::getBatch(path filepath)
+A AssetManager<A>::getAsset(path filepath)
 {
-  auto filepath_it = mFilepathToBatch.find(filepath);
-  if (filepath_it != mFilepathToBatch.end())
+  auto filepath_it = mFilepathToAsset.find(filepath);
+  if (filepath_it != mFilepathToAsset.end())
   {
     return filepath_it->second;
   }
 
-  return mFilepathToAsset[filepath] = A{ mAssetRoot / filepath };
-}
-
-namespace Aton
-{
-  class Sprite;
+  return mFilepathToAsset[filepath] = A{ ci::app::loadAsset(mAssetRoot / filepath) };
 }
 
 template AssetManager<Sprite>;

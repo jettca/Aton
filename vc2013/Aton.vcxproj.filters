@@ -36,24 +36,30 @@
     <ClInclude Include="..\include\Renderer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClCompile Include="Sprite.cpp">
+    <ClCompile Include="..\src\AssetManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AssetManager.cpp">
+    <ClCompile Include="..\src\SpriteRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Sprite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\Resources.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\Scene.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Sprite.hpp">
+    <ClInclude Include="..\include\AssetManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AssetManager.hpp">
+    <ClInclude Include="..\include\SpriteRenderer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Resources.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Sprite.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

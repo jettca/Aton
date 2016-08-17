@@ -5,7 +5,9 @@
 using namespace Aton;
 
 Engine::Engine()
-  : mObjects{}
+  : mRenderer{}
+  , mSpriteManager{ "" }
+  , mObjects{}
   , mCollisionTreeP{ std::make_unique<CollisionTree>() }
   , lastUpdateTime{ nullptr }
 {}

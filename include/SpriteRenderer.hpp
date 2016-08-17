@@ -16,7 +16,5 @@ namespace Aton
 
   private:
     std::unique_ptr<Sprite> mSpriteP;
-
-    friend GameObject;
   };
 }

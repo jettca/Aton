@@ -21,7 +21,7 @@ public:
   FMOD::Sound *mSound;
 	FMOD::Channel	*mChannel;
 
-  Aton::Engine e;
+  Aton::Engine mEngine;
 };
 
 void AtonApp::setup()
@@ -34,13 +34,13 @@ void AtonApp::setup()
 
 	mSystem->playSound(FMOD_CHANNEL_FREE, mSound, false, &mChannel);
 
-  e.addObject(std::make_unique<Aton::Character>());
+  mEngine.addObject(std::make_unique<Aton::Character>(&mEngine));
 }
 
 void AtonApp::draw()
 {
 	gl::clear();
-  e.update();
+  mEngine.update();
 //	// grab 512 samples of the wave data
 //	float waveData[512];
 //	mSystem->getWaveData(waveData, 512, 0);

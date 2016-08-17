@@ -8,6 +8,7 @@ namespace Aton
 {
   class Scene;
   class Component;
+  class Engine;
 
   class GameObject 
   {
@@ -20,17 +21,16 @@ namespace Aton
 
   protected:
     template<typename C, typename... Args>
-    C* addComponent(Args... args)
+    C* addComponent(Args&&... args)
     {
-      auto component = std::unique_ptr<C>(new C{ args... });
-      auto componentBase = std::dynamic_pointer_cast<Component>(component);
-      assert(componentBase != nullptr);
+      auto component = std::make_unique<C>(std::forward<Args>(args)...);
+      auto raw = component.get();
 
-      componentBase->mGameObjectP = this;
-      componentBase->mEngineP = mEngineP;
+      component->mGameObjectP = this;
+      component->mEngineP = mEngineP;
 
-      mComponents.push_back(component);
-      return component.get();
+      mComponents.push_back(std::move(component));
+      return raw;
     }
     
     void updateComponents(float deltaTime);

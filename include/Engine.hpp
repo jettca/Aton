@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Renderer.hpp"
+#include "AssetManager.hpp"
+#include "Sprite.hpp"
 
 #include <vector>
 #include <memory>
@@ -22,6 +24,7 @@ namespace Aton
     void update();
 
     Renderer mRenderer;
+    AssetManager<Sprite> mSpriteManager;
 
   private:
     std::vector<std::unique_ptr<GameObject>> mObjects;

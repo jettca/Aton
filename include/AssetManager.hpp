@@ -15,7 +15,7 @@ namespace Aton
 
   public:
     AssetManager(path assetRoot);
-    A getBatch(path filepath);
+    A getAsset(path filepath);
 
   private:
     path mAssetRoot;

@@ -1,9 +1,9 @@
 #pragma once
 
 #include <memory>
-#include <cinder/Vector.h>
+#include <glm/glm.hpp>
 
-namespace ci
+namespace cinder
 {
   class DataSource;
   using DataSourceRef = std::shared_ptr<DataSource>;
@@ -14,14 +14,18 @@ namespace ci
   }
 }
 
+namespace ci = cinder;
+
 namespace Aton
 {
   class Sprite
   {
   public:
+    Sprite();
+
     Sprite(const ci::DataSourceRef& data);
 
-    ci::vec2 mPosition;
+    glm::vec2 mPosition;
     float mRotation, mScale;
 
     std::shared_ptr<const ci::gl::Texture2d> getTexture() const;

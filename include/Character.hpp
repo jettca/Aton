@@ -9,7 +9,7 @@ namespace Aton
   class Character : public GameObject
   {
   public:
-    Character();
+    Character(Engine* engineP);
 
     void update(float deltaTime);
 
