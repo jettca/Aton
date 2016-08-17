@@ -26,6 +26,8 @@ namespace Aton
       auto component = std::make_unique<C>(std::forward<Args>(args)...);
       auto raw = component.get();
 
+      assert(dynamic_cast<Component*>(raw) != nullptr);
+
       component->mGameObjectP = this;
       component->mEngineP = mEngineP;
 
