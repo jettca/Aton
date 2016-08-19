@@ -28,7 +28,7 @@ namespace Aton
     glm::vec2 mPosition;
     float mRotation, mScale;
 
-    std::shared_ptr<const ci::gl::Texture2d> getTexture() const;
+    const std::shared_ptr<const ci::gl::Texture2d>& getTexture() const;
 
   private:
 

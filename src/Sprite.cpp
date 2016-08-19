@@ -19,7 +19,7 @@ Sprite::Sprite(const ci::DataSourceRef& data)
   , mScale{ 1 }
 {}
 
-std::shared_ptr<const ci::gl::Texture2d> Sprite::getTexture() const
+const std::shared_ptr<const ci::gl::Texture2d>& Sprite::getTexture() const
 {
   return mTexP;
 }
