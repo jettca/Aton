@@ -4,9 +4,20 @@
 #include <cinder/gl/gl.h>
 #include <glm/glm.hpp>
 
+namespace cinder
+{
+  namespace gl
+  {
+    class Texture2d;
+    using Texture2dRef = std::shared_ptr<Texture2d>;
+  }
+}
+
 namespace Aton
 {
   class Sprite;
+
+  using Tex2dConstRef = std::shared_ptr<const ci::gl::Texture2d>;
 
   class Renderer
   {
@@ -19,16 +30,11 @@ namespace Aton
     void createRectMesh();
 
   private:
-    struct SpriteInstanceData
-    {
-      glm::vec2 position;
-      float rotation, scale;
-    };
+    std::map<Tex2dConstRef, std::vector<const Sprite*>> mTexToSprite;
 
-    std::vector<const Sprite*> mSprites;
-    std::vector<SpriteInstanceData> mSpriteData;
     ci::geom::BufferLayout mSpriteLayout;
     ci::gl::Batch::AttributeMapping mSpriteMapping;
     ci::TriMesh mRectMesh;
+    ci::gl::GlslProgRef mSpriteShaderP;
   };
 }

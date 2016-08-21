@@ -6,7 +6,6 @@
 
 using namespace ci;
 using namespace ci::app;
-using namespace std;
 
 #include "Engine.hpp"
 #include "Character.hpp"
@@ -16,16 +15,24 @@ class AtonApp : public App
 public:
 	void setup() override;
 	void draw() override;
+  void resize() override;
 
 	FMOD::System *mSystem;
   FMOD::Sound *mSound;
 	FMOD::Channel	*mChannel;
 
   Aton::Engine mEngine;
+
+  CameraPersp mCam;
+
+  float mWidth, mHeight;
 };
 
 void AtonApp::setup()
 {
+  mCam.lookAt(glm::vec3{ 0, 0, 0 }, glm::vec3{ 0, 0, 1 });
+  mEngine.addObject(std::make_unique<Aton::Character>(&mEngine));
+
   FMOD::System_Create(&mSystem);
   mSystem->init(32, FMOD_INIT_NORMAL | FMOD_INIT_ENABLE_PROFILE, NULL);
 
@@ -34,13 +41,19 @@ void AtonApp::setup()
 
 	mSystem->playSound(FMOD_CHANNEL_FREE, mSound, false, &mChannel);
 
-  mEngine.addObject(std::make_unique<Aton::Character>(&mEngine));
+  mHeight = 200;
+  mWidth = mHeight * mCam.getAspectRatio();
+  gl::viewport(0, 0, mWidth, mHeight);
 }
 
 void AtonApp::draw()
 {
 	gl::clear();
+  gl::enableAlphaBlending(true);
+  gl::enableDepth();
+  gl::setMatrices(mCam);
   mEngine.update();
+
 //	// grab 512 samples of the wave data
 //	float waveData[512];
 //	mSystem->getWaveData(waveData, 512, 0);
@@ -53,6 +66,11 @@ void AtonApp::draw()
 //	// draw the points as a line strip
 //	gl::color(Color(1.0f, 0.5f, 0.25f));
 //	vb.draw();
+}
+
+void AtonApp::resize()
+{
+  gl::viewport(0, 0, mWidth, mHeight);
 }
 
 CINDER_APP(AtonApp, RendererGl)

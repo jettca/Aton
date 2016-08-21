@@ -213,7 +213,6 @@
     <ClCompile Include="..\src\Sprite.cpp" />
     <ClCompile Include="..\src\SpriteRenderer.cpp" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ClInclude Include="..\include\AssetManager.hpp" />
     <ClInclude Include="..\include\Character.hpp" />
@@ -226,6 +225,10 @@
     <ClInclude Include="..\include\Scene.hpp" />
     <ClInclude Include="..\include\Sprite.hpp" />
     <ClInclude Include="..\include\SpriteRenderer.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\assets\shaders\sprites.frag" />
+    <None Include="..\assets\shaders\sprites.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

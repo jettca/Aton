@@ -1,0 +1,6 @@
+Shader exception: VERTEX: Vertex shader failed to compile with the following errors:
+WARNING: 0:25: warning(#332) :gl_TexCoord is only available in compatibility profile
+ERROR: 0:25: error(#174) Not enough data provided for construction constructor
+ERROR: error(#273) 1 compilation errors.  No code generated
+
+
