@@ -41,8 +41,8 @@ float Engine::timeSinceUpdate()
   using namespace std::chrono;
 
   auto curTime = clockTime();
-  if (mLastUpdateTimeP == nullptr)
-    mLastUpdateTimeP = std::make_unique<mytime_t>(curTime);
+  if (!mLastUpdateTimeP)
+    mLastUpdateTimeP.reset(new mytime_t{ curTime });
 
   auto d = duration<float>{ curTime - *mLastUpdateTimeP };
 

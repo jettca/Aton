@@ -6,20 +6,21 @@
 using namespace Aton;
 
 Sprite::Sprite()
-  : mTexP{ nullptr }
-  , mPosition{ 0, 0 }
-  , mRotation{ 0 }
-  , mScale{ 1 }
+  : Sprite{ ci::gl::Texture2dRef{ nullptr } }
 {}
 
 Sprite::Sprite(const ci::DataSourceRef& data)
-  : mTexP{ ci::gl::Texture2d::create(ci::loadImage(data)) }
-  , mPosition{ 0, 0 }
-  , mRotation{ 0 }
+  : Sprite{ ci::gl::Texture2d::create(ci::loadImage(data)) }
+{}
+
+Sprite::Sprite(const ci::gl::Texture2dRef& texP)
+  : mTexP{ texP }
+  , mPosition{ 0, 0, 1 }
+  , mRotation{ glm::pi<float>()/4 }
   , mScale{ 1 }
 {}
 
-std::shared_ptr<const ci::gl::Texture2d> Sprite::getTexture() const
+const Tex2dConstRef& Sprite::getTexture() const
 {
   return mTexP;
 }

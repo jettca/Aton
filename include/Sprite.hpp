@@ -11,6 +11,7 @@ namespace cinder
   namespace gl
   {
     class Texture2d;
+    using Texture2dRef = std::shared_ptr<Texture2d>;
   }
 }
 
@@ -18,20 +19,26 @@ namespace ci = cinder;
 
 namespace Aton
 {
+  using Tex2dConstRef = std::shared_ptr<const ci::gl::Texture2d>;
+
   class Sprite
   {
+#pragma region constructors
   public:
     Sprite();
-
     Sprite(const ci::DataSourceRef& data);
 
-    glm::vec2 mPosition;
+  private:
+    Sprite(const ci::gl::Texture2dRef& texP);
+#pragma endregion
+
+  public:
+    glm::vec3 mPosition;
     float mRotation, mScale;
 
-    std::shared_ptr<const ci::gl::Texture2d> getTexture() const;
+    const Tex2dConstRef& getTexture() const;
 
   private:
-
-    std::shared_ptr<const ci::gl::Texture2d> mTexP;
+    Tex2dConstRef mTexP;
   };
 }
