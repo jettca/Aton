@@ -3,7 +3,7 @@
 uniform mat4 ciModelViewProjection;
 
 in vec4 ciPosition;
-in vec2 ciTexCoord;
+in vec2 ciTexCoord0;
 
 in vec3 aPosition;
 in float aRotation;
@@ -22,5 +22,5 @@ void main()
   position.z += aPosition.z;
 
   gl_Position = ciModelViewProjection * position;
-  uv = ciTexCoord;
+  uv = ciTexCoord0;
 }

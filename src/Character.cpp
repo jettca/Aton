@@ -13,7 +13,7 @@ Character::Character(Engine* engineP)
   : GameObject(engineP)
 {
   mRendererP = addComponent<SpriteRenderer>(
-    std::make_unique<Sprite>(/* mEngineP->mSpriteManager.getAsset("")*/)
+    std::make_unique<Sprite>(mEngineP->mSpriteManager.getAsset("textures/thing.png"))
   );
 }
 
