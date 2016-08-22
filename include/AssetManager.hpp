@@ -15,10 +15,10 @@ namespace Aton
 
   public:
     AssetManager(path assetRoot);
-    A getAsset(path filepath);
+    std::shared_ptr<A> getAsset(path filepath);
 
   private:
     path mAssetRoot;
-    std::map<path, A> mFilepathToAsset;
+    std::map<path, std::shared_ptr<A>> mFilepathToAsset;
   };
 }

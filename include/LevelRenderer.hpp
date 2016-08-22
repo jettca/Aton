@@ -10,19 +10,20 @@ namespace Aton
   template<class T>
   class AssetManager;
 
-  class Sprite;
+  class Texture;
+  class Camera;
 
   class LevelRenderer : public GameObject
   {
   public:
-    LevelRenderer(Engine* e, const std::shared_ptr<AssetManager<Sprite>>& tileManager,
-      const Sprite* toTrack, glm::vec2 offset = glm::vec2{ 0, 0 });
+    LevelRenderer(Engine* e, const std::shared_ptr<AssetManager<Texture>>& tileManager,
+      Camera* cam);
 
     void update(float deltaTime) override;
 
   private:
-    std::shared_ptr<AssetManager<Sprite>> mTileManager;
-    const Sprite* mToTrack;
+    std::shared_ptr<AssetManager<Texture>> mTileManager;
+    Camera* mCam;
     glm::vec2 mOffset;
   };
 }

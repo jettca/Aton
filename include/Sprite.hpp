@@ -1,44 +1,34 @@
 #pragma once
 
+#include "GameObject.hpp"
+#include "Texture.hpp"
+
 #include <memory>
 #include <glm/glm.hpp>
-
-namespace cinder
-{
-  class DataSource;
-  using DataSourceRef = std::shared_ptr<DataSource>;
-
-  namespace gl
-  {
-    class Texture2d;
-    using Texture2dRef = std::shared_ptr<Texture2d>;
-  }
-}
-
-namespace ci = cinder;
 
 namespace Aton
 {
   using Tex2dConstRef = std::shared_ptr<const ci::gl::Texture2d>;
 
-  class Sprite
+  class Transform2d;
+  class Texture;
+
+  class Sprite : public GameObject
   {
 #pragma region constructors
   public:
-    Sprite();
-    Sprite(const ci::DataSourceRef& data);
-
-  private:
-    Sprite(const ci::gl::Texture2dRef& texP);
+    Sprite(Engine* e = nullptr);
+    Sprite(Engine* e, const std::shared_ptr<Texture>& texP);
 #pragma endregion
 
-  public:
-    glm::vec3 mPosition;
-    float mRotation, mScale;
+    void update(float deltaTime) override;
 
-    const Tex2dConstRef& getTexture() const;
+  public:
+    Transform2d* const mTransformP;
+
+    Tex2dConstRef getTexture() const;
 
   private:
-    Tex2dConstRef mTexP;
+    std::shared_ptr<Texture> mTexP;
   };
 }

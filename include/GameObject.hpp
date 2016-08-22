@@ -30,6 +30,7 @@ namespace Aton
 
       component->mGameObjectP = this;
       component->mEngineP = mEngineP;
+      component->initialize();
 
       mComponents.push_back(std::move(component));
       return raw;

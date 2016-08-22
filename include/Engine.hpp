@@ -2,7 +2,6 @@
 
 #include "Renderer.hpp"
 #include "AssetManager.hpp"
-#include "Sprite.hpp"
 
 #include <vector>
 #include <memory>
@@ -12,6 +11,7 @@ namespace Aton
 {
   class GameObject;
   class CollisionTree;
+  class Texture;
 
   class Engine
   {
@@ -24,7 +24,7 @@ namespace Aton
     void update();
 
     Renderer mRenderer;
-    AssetManager<Sprite> mSpriteManager;
+    AssetManager<Texture> mSpriteManager;
 
   private:
     std::vector<std::unique_ptr<GameObject>> mObjects;

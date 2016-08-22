@@ -8,10 +8,14 @@ SpriteRenderer::SpriteRenderer(std::unique_ptr<Sprite> spriteP)
   : mSpriteP{ std::move(spriteP) }
 {}
 
-void SpriteRenderer::update(float deltaTime)
+void SpriteRenderer::initialize()
 {
   mEngineP->mRenderer.addSprite(*mSpriteP);
 }
+
+void SpriteRenderer::update(float deltaTime)
+{}
+
 const Sprite* SpriteRenderer::getSprite() const
 {
   return mSpriteP.get();

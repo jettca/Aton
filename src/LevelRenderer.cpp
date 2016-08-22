@@ -1,16 +1,16 @@
 #include "LevelRenderer.hpp"
 #include "AssetManager.hpp"
-#include "Sprite.hpp"
-#include "SpriteRenderer.hpp"
+#include "Texture.hpp"
+#include "Camera.hpp"
 
 using namespace Aton;
 
-LevelRenderer::LevelRenderer(Engine* e, const std::shared_ptr<AssetManager<Sprite>>& tileManager,
-                             const Sprite* toTrack, glm::vec2 offset)
+LevelRenderer::LevelRenderer(Engine* e,
+    const std::shared_ptr<AssetManager<Texture>>& tileManager,
+    Camera* cam)
   : GameObject{ e }
   , mTileManager{ tileManager }
-  , mToTrack{ toTrack }
-  , mOffset{ offset }
+  , mCam{ cam }
 {}
 
 void LevelRenderer::update(float deltaTime)

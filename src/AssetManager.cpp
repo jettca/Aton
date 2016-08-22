@@ -1,7 +1,8 @@
 #include "AssetManager.hpp"
-#include "Sprite.hpp"
+#include "Texture.hpp"
 
 #include <cinder/app/App.h>
+#include <cinder/gl/gl.h>
 
 using namespace Aton;
 
@@ -12,7 +13,7 @@ AssetManager<A>::AssetManager(path assetRoot)
 {}
 
 template<typename A>
-A AssetManager<A>::getAsset(path filepath)
+std::shared_ptr<A> AssetManager<A>::getAsset(path filepath)
 {
   auto filepath_it = mFilepathToAsset.find(filepath);
   if (filepath_it != mFilepathToAsset.end())
@@ -20,7 +21,8 @@ A AssetManager<A>::getAsset(path filepath)
     return filepath_it->second;
   }
 
-  return mFilepathToAsset[filepath] = A{ ci::app::loadAsset(mAssetRoot / filepath) };
+  return mFilepathToAsset[filepath] =
+    std::make_shared<A>(ci::app::loadAsset(mAssetRoot / filepath));
 }
 
-template AssetManager<Sprite>;
+template AssetManager<Texture>;

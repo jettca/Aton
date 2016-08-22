@@ -1,5 +1,6 @@
 #include "Renderer.hpp"
 #include "Sprite.hpp"
+#include "Transform2d.hpp"
 
 #include <cinder/app/App.h>
 #include <fstream>
@@ -66,9 +67,9 @@ void Renderer::draw()
 
     for (auto sprite : texData.second) {
       auto data = SpriteInstanceData{};
-      data.position = sprite->mPosition;
-      data.rotation = sprite->mRotation;
-      data.scale = sprite->mScale;
+      data.position = sprite->mTransformP->position;
+      data.rotation = sprite->mTransformP->rotation;
+      data.scale = sprite->mTransformP->scale;
       spriteData.push_back(data);
     }
     
@@ -85,7 +86,6 @@ void Renderer::draw()
 
     {
       ci::gl::ScopedModelMatrix smm;
-      ci::gl::translate(0, 0, 5);
       batch->drawInstanced(spriteData.size());
     }
   }
