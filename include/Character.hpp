@@ -5,6 +5,7 @@
 namespace Aton
 {
   class SpriteRenderer;
+  class Sprite;
 
   class Character : public GameObject
   {

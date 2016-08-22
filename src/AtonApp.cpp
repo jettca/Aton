@@ -27,7 +27,7 @@ public:
 
   CameraPersp mCam;
 
-  float mWidth, mHeight;
+  int mWidth, mHeight;
 };
 
 void AtonApp::setup()
@@ -50,7 +50,7 @@ void AtonApp::setup()
 	mSystem->playSound(FMOD_CHANNEL_FREE, mSound, false, &mChannel);
 
   mHeight = 200;
-  mWidth = mHeight * mCam.getAspectRatio();
+  mWidth = static_cast<int>(mHeight * mCam.getAspectRatio());
   gl::viewport(0, 0, mWidth, mHeight);
 }
 
