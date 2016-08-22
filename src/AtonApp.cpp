@@ -9,6 +9,8 @@ using namespace ci::app;
 
 #include "Engine.hpp"
 #include "Character.hpp"
+#include "LevelRenderer.hpp"
+#include "AssetManager.hpp"
 
 class AtonApp : public App
 {
@@ -30,8 +32,14 @@ public:
 
 void AtonApp::setup()
 {
+  using namespace Aton;
+
   mCam.lookAt(glm::vec3{ 0, 0, 0 }, glm::vec3{ 0, 0, 1 });
-  mEngine.addObject(std::make_unique<Aton::Character>(&mEngine));
+
+  auto character = std::make_unique<Character>(&mEngine);
+  mEngine.addObject(std::make_unique<LevelRenderer>(&mEngine,
+    std::make_shared<AssetManager<Sprite>>("level"), character->getSprite()));
+  mEngine.addObject(std::move(character));
 
   FMOD::System_Create(&mSystem);
   mSystem->init(32, FMOD_INIT_NORMAL | FMOD_INIT_ENABLE_PROFILE, NULL);

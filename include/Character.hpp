@@ -13,6 +13,8 @@ namespace Aton
 
     void update(float deltaTime);
 
+    const Sprite* getSprite() const;
+
   private:
     SpriteRenderer* mRendererP;
   };

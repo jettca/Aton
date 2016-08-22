@@ -12,3 +12,7 @@ void SpriteRenderer::update(float deltaTime)
 {
   mEngineP->mRenderer.addSprite(*mSpriteP);
 }
+const Sprite* SpriteRenderer::getSprite() const
+{
+  return mSpriteP.get();
+}

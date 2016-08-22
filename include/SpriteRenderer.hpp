@@ -14,6 +14,8 @@ namespace Aton
     SpriteRenderer(std::unique_ptr<Sprite> spriteP);
     void update(float deltaTime);
 
+    const Sprite* getSprite() const;
+
   private:
     std::unique_ptr<Sprite> mSpriteP;
   };

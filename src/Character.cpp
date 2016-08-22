@@ -1,5 +1,3 @@
-#pragma once
-
 #include "Character.hpp"
 #include "SpriteRenderer.hpp"
 #include "Sprite.hpp"
@@ -13,11 +11,16 @@ Character::Character(Engine* engineP)
   : GameObject(engineP)
 {
   mRendererP = addComponent<SpriteRenderer>(
-    std::make_unique<Sprite>(mEngineP->mSpriteManager.getAsset("textures/thing.png"))
+    std::make_unique<Sprite>(mEngineP->mSpriteManager.getAsset("thing.png"))
   );
 }
 
 void Character::update(float deltaTime)
 {
   updateComponents(deltaTime);
+}
+
+const Sprite* Character::getSprite() const
+{
+  return mRendererP->getSprite();
 }
