@@ -26,6 +26,7 @@ public:
   FMOD::Channel	*mChannel;
 
   Aton::Engine mEngine;
+  Aton::Camera* mCam;
 
   int mWidth, mHeight;
 };
@@ -35,10 +36,7 @@ void AtonApp::setup()
   auto character = std::make_unique<Aton::Character>(&mEngine);
   auto camera = std::make_unique<Aton::Camera>(&mEngine, glm::vec3{ 0, 0, 1 },
     character->getSprite()->mTransformP);
-
-  mHeight = 200;
-  mWidth = static_cast<int>(mHeight * camera->getCameraPersp().getAspectRatio());
-  gl::viewport(0, 0, mWidth, mHeight);
+  mCam = camera.get();
 
   mEngine.addObject(std::make_unique<Aton::LevelRenderer>(&mEngine,
     std::make_shared<Aton::AssetManager<Aton::Texture>>("level"),
@@ -78,7 +76,7 @@ void AtonApp::draw()
 
 void AtonApp::resize()
 {
-  gl::viewport(0, 0, mWidth, mHeight);
+  mCam->getCameraPersp().setAspectRatio(static_cast<float>(getWindowWidth()) / getWindowHeight());
 }
 
 CINDER_APP(AtonApp, RendererGl)

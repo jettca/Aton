@@ -24,7 +24,7 @@ void Camera::update(float deltaTime)
   }
 }
 
-const ci::CameraPersp& Camera::getCameraPersp() const
+ci::CameraPersp& Camera::getCameraPersp() const
 {
   return *mCam;
 }

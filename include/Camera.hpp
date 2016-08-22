@@ -23,7 +23,7 @@ namespace Aton
 
     void update(float deltaTime) override;
 
-    const ci::CameraPersp& getCameraPersp() const;
+    ci::CameraPersp& getCameraPersp() const;
 
     void setPosition(glm::vec3 position);
     void setDirection(glm::vec3 direction);

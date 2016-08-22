@@ -24,6 +24,5 @@ namespace Aton
   private:
     std::shared_ptr<AssetManager<Texture>> mTileManager;
     Camera* mCam;
-    glm::vec2 mOffset;
   };
 }
