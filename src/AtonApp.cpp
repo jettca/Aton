@@ -44,10 +44,11 @@ void AtonApp::setup()
     return std::to_string(coord.x) + "_" + std::to_string(coord.y) + ".png";
   };
 
-  mEngine.addObject(std::make_unique<Aton::LevelRenderer>(&mEngine,
-    tileManager, camera.get(), glm::vec2{ 2, 2 }, glm::ivec2{ 1, 1 }, tileToFile));
   mEngine.addObject(std::move(camera));
   mEngine.addObject(std::move(character));
+  mEngine.addObject(std::make_unique<Aton::LevelRenderer>(&mEngine,
+    tileManager, mEngine.getCamera(), glm::vec2{ .5, .5 }, glm::ivec2{ 1, 1 },
+    tileToFile));
 
   FMOD::System_Create(&mSystem);
   mSystem->init(32, FMOD_INIT_NORMAL | FMOD_INIT_ENABLE_PROFILE, NULL);

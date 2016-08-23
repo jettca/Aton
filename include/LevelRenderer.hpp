@@ -29,27 +29,27 @@ namespace Aton
     void update(float deltaTime) override;
 
   private:
-    glm::vec2 tilesPerScreen() const;
-    void loadTile(glm::ivec2 coord);
-
-    struct Tile
-    {
-      std::unique_ptr<SpriteRenderer> renderer;
-      glm::ivec2 coords;
-      glm::vec2 minCoords, maxCoords;
-    };
-
-    Grid<std::shared_ptr<Tile>> mGrid;
-    glm::vec3 mPrevCamCoord;
-    glm::vec3 mStartCamCoord;
-    glm::vec2 mPrevNumTilesPerScreen;
-
-  private:
     std::shared_ptr<AssetManager<Texture>> mTileManager;
     Camera* mCam;
     glm::vec2 mTileSize;
     glm::ivec2 mStartTile;
     tiletofile_t mTileToFile;
     float mTileDepth;
+
+  private:
+    struct Tile
+    {
+      std::unique_ptr<SpriteRenderer> renderer;
+      glm::ivec2 coord;
+      glm::vec2 minCoord, maxCoord;
+    };
+
+    glm::vec2 tilesPerScreen() const;
+    std::shared_ptr<Tile> loadTile(glm::ivec2 coord);
+
+    glm::vec3 mPrevCamCoord;
+    glm::vec3 mStartCamCoord;
+    glm::vec2 mPrevNumTilesPerScreen;
+    Grid<std::shared_ptr<Tile>> mGrid;
   };
 }

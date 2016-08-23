@@ -33,7 +33,7 @@ void AssetManager<A>::unloadAsset(const std::shared_ptr<A>& asset)
 {
   auto path = mAssetToFilepath[asset];
   mAssetToFilepath.erase(asset);
-  mFilepathtoAsset.erase(path);
+  mFilepathToAsset.erase(path);
 }
 
 template AssetManager<Texture>;

@@ -225,6 +225,7 @@
     <ClInclude Include="..\include\Component.hpp" />
     <ClInclude Include="..\include\Engine.hpp" />
     <ClInclude Include="..\include\GameObject.hpp" />
+    <ClInclude Include="..\include\Grid.hpp" />
     <ClInclude Include="..\include\LevelRenderer.hpp" />
     <ClInclude Include="..\include\Renderer.hpp" />
     <ClInclude Include="..\include\Resources.hpp" />
