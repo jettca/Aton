@@ -23,6 +23,15 @@ namespace Aton
     template<typename C, typename... Args>
     C* addComponent(Args&&... args)
     {
+      auto component = makeComponent(std::forward<Args>(args)...);
+      auto raw = component.get();
+      mComponents.push_back(std::move(component));
+      return raw;
+    }
+
+    template<typename C, typename... Args>
+    std::unique_ptr<C> makeComponent(Args&&... args)
+    {
       auto component = std::make_unique<C>(std::forward<Args>(args)...);
       auto raw = component.get();
 
@@ -32,8 +41,7 @@ namespace Aton
       component->mEngineP = mEngineP;
       component->initialize();
 
-      mComponents.push_back(std::move(component));
-      return raw;
+      return component;
     }
     
     void updateComponents(float deltaTime);

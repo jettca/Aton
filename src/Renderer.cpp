@@ -61,11 +61,23 @@ Renderer::Renderer()
 
 void Renderer::draw()
 {
-  for (auto& texData : mTexToSprite) {
+  for (auto& texData : mTexToSprite)
+  {
+    // remove removed sprites
+    {
+      auto sprites = std::vector<const Sprite*>{};
+      sprites.reserve(texData.second.size());
+      for (auto sprite : texData.second)
+        if (toRemove.find(sprite) == toRemove.end())
+          sprites.push_back(sprite);
+      texData.second = sprites;
+    }
+
+    // get sprite instance buffer data
     auto spriteData = std::vector<SpriteInstanceData>();
     spriteData.reserve(texData.second.size());
-
-    for (auto sprite : texData.second) {
+    for (auto sprite : texData.second)
+    {
       auto data = SpriteInstanceData{};
       data.position = sprite->mTransformP->position;
       data.rotation = sprite->mTransformP->rotation;
@@ -73,6 +85,7 @@ void Renderer::draw()
       spriteData.push_back(data);
     }
     
+    // create VBO
     auto spriteVbo = ci::gl::Vbo::create(GL_ARRAY_BUFFER,
       spriteData.size() * sizeof(SpriteInstanceData),
       spriteData.data(), GL_DYNAMIC_DRAW);
@@ -82,6 +95,7 @@ void Renderer::draw()
 
     auto batch = ci::gl::Batch::create(rectVboMesh, mSpriteShaderP, mSpriteMapping);
 
+    // draw sprites
     texData.first->bind(0);
 
     {
@@ -89,11 +103,18 @@ void Renderer::draw()
       batch->drawInstanced(spriteData.size());
     }
   }
+
+  toRemove.clear();
 }
 
 void Renderer::addSprite(const Sprite& sprite)
 {
   mTexToSprite[sprite.getTexture()].push_back(&sprite);
+}
+
+void Renderer::removeSprite(const Sprite& sprite)
+{
+  toRemove.insert(&sprite);
 }
 
 void Renderer::createRectMesh()

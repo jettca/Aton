@@ -13,6 +13,11 @@ void SpriteRenderer::initialize()
   mEngineP->mRenderer.addSprite(*mSpriteP);
 }
 
+SpriteRenderer::~SpriteRenderer()
+{
+  mEngineP->mRenderer.removeSprite(*mSpriteP);
+}
+
 void SpriteRenderer::update(float deltaTime)
 {}
 

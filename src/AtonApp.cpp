@@ -38,9 +38,14 @@ void AtonApp::setup()
     character->getSprite()->mTransformP);
   mCam = camera.get();
 
+  auto tileManager = std::make_shared<Aton::AssetManager<Aton::Texture>>("level");
+  auto tileToFile = [](glm::ivec2 coord)
+  {
+    return std::to_string(coord.x) + "_" + std::to_string(coord.y) + ".png";
+  };
+
   mEngine.addObject(std::make_unique<Aton::LevelRenderer>(&mEngine,
-    std::make_shared<Aton::AssetManager<Aton::Texture>>("level"),
-    camera.get()));
+    tileManager, camera.get(), glm::vec2{ 2, 2 }, glm::ivec2{ 1, 1 }, tileToFile));
   mEngine.addObject(std::move(camera));
   mEngine.addObject(std::move(character));
 

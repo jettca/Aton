@@ -1,6 +1,7 @@
 #include "Engine.hpp"
 #include "CollisionTree.hpp"
 #include "GameObject.hpp"
+#include "Camera.hpp"
 
 using namespace Aton;
 
@@ -15,9 +16,22 @@ Engine::Engine()
 Engine::~Engine()
 {}
 
+void Engine::addObject(std::unique_ptr<Camera> cameraP)
+{
+  mCameras.push_back(cameraP.get());
+  mObjects.push_back(std::move(cameraP));
+}
+
 void Engine::addObject(std::unique_ptr<GameObject> objectP)
 {
   mObjects.push_back(std::move(objectP));
+} 
+
+Camera* Engine::getCamera(size_t index)
+{
+  if (index >= mCameras.size())
+    return nullptr;
+  return mCameras[index];
 }
 
 void Engine::update()
