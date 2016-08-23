@@ -20,25 +20,38 @@ LevelRenderer::LevelRenderer(Engine* e,
   , mStartTile{ std::move(startTile) }
   , mTileToFile{ std::move(tileToFile) }
   , mTileDepth{ 1.0f }
-  , mPrevTileCoord{ -1.0f, -1.0f }
+  , mPrevCamCoord{ mCam->getPosition }
+  , mStartCamCoord{ mPrevCamCoord }
+  , mPrevNumTilesPerScreen{ tilesPerScreen() }
+  , mGrid{ mPrevNumTilesPerScreen, tileSize, nullptr, mPrevNumTilesPerScreen / 2.0f }
 {}
 
 void LevelRenderer::update(float deltaTime)
 {
   auto numTiles = tilesPerScreen();
-  auto curTile = glm::vec2{ mCam->getPosition() } / mTileSize
-    + glm::vec2{ mStartTile };
+  auto camCoord = mCam->getPosition();
 
-  auto minCoord = glm::ivec2{ curTile - numTiles / 2.0f };
-  auto maxCoord = glm::ivec2{ curTile + numTiles / 2.0f };
+  if (numTiles != mPrevNumTilesPerScreen)
+  {
+    mGrid.resize(numTiles);
+  }
 
-  for (int x = minCoord.x; x <= maxCoord.x; x++) {
-    for (int y = minCoord.y; y <= maxCoord.y; y++)
+  mGrid.shift(glm::vec2{ camCoord - mPrevCamCoord });
+
+  for (auto w = int{ 0 }; w < mGrid.width(); w++) {
+    for (auto h = int{ 0 }; h < mGrid.height(); h++)
     {
+      if (mGrid[w][h] == nullptr)
+      {
+        auto gridCoord = mGrid.getPosFromIndex(w, h);
+        auto worldCoord = gridCoord + glm::vec2{ camCoord - mStartCamCoord };
+        loadTile(worldCoord);
+      }
     }
   }
 
-  mPrevTileCoord = curTile;
+  mPrevNumTilesPerScreen = numTiles;
+  mPrevCamCoord = camCoord;
 }
 
 glm::vec2 LevelRenderer::tilesPerScreen() const
@@ -56,24 +69,24 @@ glm::vec2 LevelRenderer::tilesPerScreen() const
   return glm::vec2{ spanWorld } / mTileSize;
 }
 
-void LevelRenderer::loadTile(glm::ivec2 coords)
+void LevelRenderer::loadTile(glm::ivec2 coord)
 {
-  auto tile = Tile{};
+  auto tileP = std::make_shared<Tile>();
 
-  tile.renderer = makeComponent<SpriteRenderer>(
+  tileP->renderer = makeComponent<SpriteRenderer>(
     std::make_unique<Sprite>(mEngineP,
-      mTileManager->getAsset(mTileToFile(coords))));
+      mTileManager->getAsset(mTileToFile(coord))));
 
-  tile.coords = std::move(coords);
+  tileP->coords = std::move(coord);
 
-  auto shiftedCoords = glm::vec2{ mStartTile - tile.coords } * mTileSize;
-  tile.minCoords = shiftedCoords - mTileSize / 2.0f;
-  tile.maxCoords = shiftedCoords + mTileSize / 2.0f;
+  auto shiftedCoords = glm::vec2{ mStartTile - tileP->coords } * mTileSize;
+  tileP->minCoords = shiftedCoords - mTileSize / 2.0f;
+  tileP->maxCoords = shiftedCoords + mTileSize / 2.0f;
 
-  auto& spritePos = tile.renderer->getSprite()->mTransformP->position;
-  spritePos.x = tile.minCoords.x;
-  spritePos.y = tile.minCoords.y;
+  auto& spritePos = tileP->renderer->getSprite()->mTransformP->position;
+  spritePos.x = tileP->minCoords.x;
+  spritePos.y = tileP->minCoords.y;
   spritePos.z = mTileDepth;
 
-  mLoadedTiles.push_back(std::move(tile));
+  mGrid(coords) = std::move(tileP);
 }

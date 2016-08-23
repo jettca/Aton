@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameObject.hpp"
+#include "Grid.hpp"
 
 #include <memory>
 #include <glm/glm.hpp>
@@ -29,7 +30,7 @@ namespace Aton
 
   private:
     glm::vec2 tilesPerScreen() const;
-    void loadTile(glm::ivec2 coords);
+    void loadTile(glm::ivec2 coord);
 
     struct Tile
     {
@@ -38,8 +39,10 @@ namespace Aton
       glm::vec2 minCoords, maxCoords;
     };
 
-    std::vector<Tile> mLoadedTiles;
-    glm::vec2 mPrevTileCoord;
+    Grid<std::shared_ptr<Tile>> mGrid;
+    glm::vec3 mPrevCamCoord;
+    glm::vec3 mStartCamCoord;
+    glm::vec2 mPrevNumTilesPerScreen;
 
   private:
     std::shared_ptr<AssetManager<Texture>> mTileManager;
