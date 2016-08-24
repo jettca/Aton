@@ -7,6 +7,9 @@
 #include <glm/glm.hpp>
 #include <functional>
 
+
+// TODO: unload long gone tiles from memory
+
 namespace Aton
 {
   template<class T>
