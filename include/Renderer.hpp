@@ -32,7 +32,7 @@ namespace Aton
 
   private:
     std::map<Tex2dConstRef, std::vector<const Sprite*>> mTexToSprite;
-    std::set<const Sprite*> toRemove;
+    std::set<const Sprite*> mToRemove;
 
     ci::geom::BufferLayout mSpriteLayout;
     ci::gl::Batch::AttributeMapping mSpriteMapping;

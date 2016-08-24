@@ -25,7 +25,9 @@ LevelRenderer::LevelRenderer(Engine* e,
   , mPrevCamCoord{ cam->getPosition() }
   , mStartCamCoord{ mPrevCamCoord }
   , mPrevNumTilesPerScreen{ tilesPerScreen() }
-  , mGrid{ mPrevNumTilesPerScreen, mTileSize, nullptr, mPrevNumTilesPerScreen / 2.0f }
+  , mGrid{ mPrevNumTilesPerScreen * mTileSize,
+           mTileSize, nullptr,
+           mPrevNumTilesPerScreen * mTileSize / 2.0f }
 {}
 
 void LevelRenderer::update(float deltaTime)
@@ -35,7 +37,7 @@ void LevelRenderer::update(float deltaTime)
 
   if (numTiles != mPrevNumTilesPerScreen)
   {
-    mGrid.resize(numTiles);
+    mGrid.resize(numTiles * mTileSize);
   }
 
   mGrid.shift(glm::vec2{ camCoord - mPrevCamCoord });

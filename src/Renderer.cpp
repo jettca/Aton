@@ -61,6 +61,7 @@ Renderer::Renderer()
 
 void Renderer::draw()
 {
+  auto texToRemove = std::vector<Tex2dConstRef>{};
   for (auto& texData : mTexToSprite)
   {
     // remove removed sprites
@@ -68,8 +69,14 @@ void Renderer::draw()
       auto sprites = std::vector<const Sprite*>{};
       sprites.reserve(texData.second.size());
       for (auto sprite : texData.second)
-        if (toRemove.find(sprite) == toRemove.end())
+        if (mToRemove.find(sprite) == mToRemove.end())
           sprites.push_back(sprite);
+
+      if (sprites.size() == 0)
+      {
+        texToRemove.push_back(texData.first);
+        continue;
+      }
       texData.second = sprites;
     }
 
@@ -99,8 +106,12 @@ void Renderer::draw()
     texData.first->bind(0);
     batch->drawInstanced(spriteData.size());
   }
+  for (auto& tex : texToRemove)
+  {
+    mTexToSprite.erase(tex);
+  }
 
-  toRemove.clear();
+  mToRemove.clear();
 }
 
 void Renderer::addSprite(const Sprite& sprite)
@@ -110,7 +121,7 @@ void Renderer::addSprite(const Sprite& sprite)
 
 void Renderer::removeSprite(const Sprite& sprite)
 {
-  toRemove.insert(&sprite);
+  mToRemove.insert(&sprite);
 }
 
 void Renderer::createRectMesh()

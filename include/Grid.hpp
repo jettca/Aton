@@ -95,12 +95,12 @@ void Grid<T>::resize(glm::vec2 size)
   mHeight = static_cast<size_t>(std::ceil(mGridSize.y / mCellSize.y)) + 1;
   mGrid = std::vector<T>(mWidth * mHeight, mDefaultValue);
 
-  auto minX = glm::min(oldGridSize.x, mGridSize.x) / mCellSize.x;
-  auto minY = glm::min(oldGridSize.y, mGridSize.y) / mCellSize.y;
-  for (auto x = int{ 0 }; x < minX; x++) {
-    for (auto y = int{ 0 }; y < minY; y++)
+  auto minW = glm::min(mWidth, oldWidth);
+  auto minH = glm::min(mHeight, oldHeight);
+  for (auto w = size_t{ 0 }; w < minW; w++) {
+    for (auto h = size_t{ 0 }; h < minH; h++)
     {
-      mGrid[x * mHeight + y] = std::move(oldGrid[x * oldHeight + y]);
+      mGrid[w * mHeight + h] = std::move(oldGrid[w * oldHeight + h]);
     }
   }
 }
