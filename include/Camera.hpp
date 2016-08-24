@@ -32,8 +32,7 @@ namespace Aton
     const glm::vec3& getDirection() const;
 
   private:
-    glm::vec3 mPosition;
-    glm::vec3 mDirection;
+    glm::vec3 mPosition, mDirection, mUp;
 
     Transform2d* mToTrack;
 

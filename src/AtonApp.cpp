@@ -34,15 +34,21 @@ public:
 void AtonApp::setup()
 {
   auto character = std::make_unique<Aton::Character>(&mEngine);
-  auto camera = std::make_unique<Aton::Camera>(&mEngine, glm::vec3{ 0, 0, 1 },
+  auto camera = std::make_unique<Aton::Camera>(&mEngine, glm::vec3{ 0, 0, -1 },
     character->getSprite()->mTransformP);
   mCam = camera.get();
 
-  mEngine.addObject(std::make_unique<Aton::LevelRenderer>(&mEngine,
-    std::make_shared<Aton::AssetManager<Aton::Texture>>("level"),
-    camera.get()));
+  auto tileManager = std::make_shared<Aton::AssetManager<Aton::Texture>>("level");
+  auto tileToFile = [](glm::ivec2 coord)
+  {
+    return std::to_string(coord.x) + "_" + std::to_string(coord.y) + ".png";
+  };
+
   mEngine.addObject(std::move(camera));
   mEngine.addObject(std::move(character));
+  mEngine.addObject(std::make_unique<Aton::LevelRenderer>(&mEngine,
+    tileManager, mEngine.getCamera(), glm::vec2{ 3, 3 }, glm::ivec2{ 1, 1 },
+    tileToFile));
 
   FMOD::System_Create(&mSystem);
   mSystem->init(32, FMOD_INIT_NORMAL | FMOD_INIT_ENABLE_PROFILE, NULL);

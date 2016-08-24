@@ -12,6 +12,7 @@ namespace Aton
   {
   public:
     SpriteRenderer(std::unique_ptr<Sprite> spriteP);
+    ~SpriteRenderer();
 
     void initialize() override;
     void update(float deltaTime) override;

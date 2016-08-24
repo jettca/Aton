@@ -25,12 +25,14 @@ namespace Aton
     Renderer();
     void draw();
     void addSprite(const Sprite& sprite);
+    void removeSprite(const Sprite& sprite);
 
   private:
     void createRectMesh();
 
   private:
     std::map<Tex2dConstRef, std::vector<const Sprite*>> mTexToSprite;
+    std::set<const Sprite*> mToRemove;
 
     ci::geom::BufferLayout mSpriteLayout;
     ci::gl::Batch::AttributeMapping mSpriteMapping;

@@ -12,6 +12,7 @@ namespace Aton
   class GameObject;
   class CollisionTree;
   class Texture;
+  class Camera;
 
   class Engine
   {
@@ -20,13 +21,16 @@ namespace Aton
     Engine();
     ~Engine();
 
+    void addObject(std::unique_ptr<Camera> cameraP);
     void addObject(std::unique_ptr<GameObject> objectP);
+    Camera* getCamera(size_t index = 0);
     void update();
 
     Renderer mRenderer;
     AssetManager<Texture> mSpriteManager;
 
   private:
+    std::vector<Camera*> mCameras;
     std::vector<std::unique_ptr<GameObject>> mObjects;
     std::unique_ptr<CollisionTree> mCollisionTreeP;
 

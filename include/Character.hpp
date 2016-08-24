@@ -6,6 +6,7 @@ namespace Aton
 {
   class SpriteRenderer;
   class Sprite;
+  class Transform2d;
 
   class Character : public GameObject
   {
@@ -18,5 +19,6 @@ namespace Aton
 
   private:
     SpriteRenderer* mRendererP;
+    Transform2d* mTransformP;
   };
 }
