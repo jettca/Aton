@@ -7,6 +7,8 @@
 #include "Transform2d.hpp"
 #include "Engine.hpp"
 
+#include <cinder/app/Platform.h>
+
 using namespace Aton;
 
 LevelRenderer::LevelRenderer(Engine* e,
@@ -19,7 +21,7 @@ LevelRenderer::LevelRenderer(Engine* e,
   , mTileSize{ std::move(tileSize) }
   , mStartTile{ std::move(startTile) }
   , mTileToFile{ std::move(tileToFile) }
-  , mTileDepth{ 1.0f }
+  , mTileDepth{ -6.0f }
   , mPrevCamCoord{ cam->getPosition() }
   , mStartCamCoord{ mPrevCamCoord }
   , mPrevNumTilesPerScreen{ tilesPerScreen() }
@@ -62,11 +64,14 @@ glm::vec2 LevelRenderer::tilesPerScreen() const
   auto vp = cam.getProjectionMatrix() * cam.getViewMatrix();
   auto invvp = glm::inverse(vp);
 
-  auto zproj = (vp * glm::vec4{ 0, 0, mTileDepth, 0 }).z;
+  auto clipSpaceTile = vp * glm::vec4{ glm::vec2{ cam.getEyePoint() }, mTileDepth, 1 };
+  auto zproj = clipSpaceTile.z / clipSpaceTile.w;
   auto minWorld = invvp * glm::vec4{ -1, -1, zproj, 1 };
+  minWorld /= minWorld.w;
   auto maxWorld = invvp * glm::vec4{ 1, 1, zproj, 1 };
+  maxWorld /= maxWorld.w;
 
-  auto spanWorld = maxWorld - minWorld;
+  auto spanWorld = glm::abs(maxWorld - minWorld);
 
   return glm::vec2{ spanWorld } / mTileSize;
 }
@@ -81,7 +86,7 @@ std::shared_ptr<LevelRenderer::Tile> LevelRenderer::loadTile(glm::ivec2 coord)
       std::make_unique<Sprite>(mEngineP,
         mTileManager->getAsset(mTileToFile(coord))));
   }
-  catch (std::exception& e)
+  catch (ci::app::AssetLoadExc&)
   {
     return nullptr;
   }
@@ -89,14 +94,15 @@ std::shared_ptr<LevelRenderer::Tile> LevelRenderer::loadTile(glm::ivec2 coord)
 
   tileP->coord = std::move(coord);
 
-  auto shiftedCoords = glm::vec2{ mStartTile - tileP->coord } * mTileSize;
-  tileP->minCoord = shiftedCoords * mTileSize - mTileSize / 2.0f;
-  tileP->maxCoord = shiftedCoords * mTileSize + mTileSize / 2.0f;
+  auto shiftedCoords = glm::vec2{ tileP->coord - mStartTile } * mTileSize;
+  tileP->minCoord = shiftedCoords - mTileSize / 2.0f;
+  tileP->maxCoord = shiftedCoords + mTileSize / 2.0f;
 
-  auto& spritePos = tileP->renderer->getSprite()->mTransformP->position;
-  spritePos.x = tileP->minCoord.x;
-  spritePos.y = tileP->minCoord.y;
-  spritePos.z = mTileDepth;
+  auto spriteTransformP = tileP->renderer->getSprite()->mTransformP;
+  spriteTransformP->position.x = shiftedCoords.x;
+  spriteTransformP->position.y = shiftedCoords.y;
+  spriteTransformP->position.z = mTileDepth;
+  spriteTransformP->size = mTileSize;
 
   return tileP;
 }

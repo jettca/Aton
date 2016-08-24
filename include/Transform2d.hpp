@@ -14,6 +14,7 @@ namespace Aton
     void update(float deltaTime = 0) override;
 
     glm::vec3 position;
-    float rotation, scale;
+    float rotation;
+    glm::vec2 size;
   };
 }

@@ -11,7 +11,14 @@ Camera::Camera(Engine* e, glm::vec3 direction, Transform2d* toTrack)
   , mDirection{ direction }
   , mCam{ std::make_unique<ci::CameraPersp>() }
   , mToTrack{ toTrack }
-{}
+  , mUp{ 0, 1, 0 }
+{
+  if (toTrack) {
+    mPosition.x = mToTrack->position.x;
+    mPosition.y = mToTrack->position.y;
+    mCam->lookAt(mPosition, mPosition + mDirection, mUp);
+  }
+}
 
 void Camera::update(float deltaTime)
 {
@@ -19,7 +26,7 @@ void Camera::update(float deltaTime)
   {
     mPosition.x = mToTrack->position.x;
     mPosition.y = mToTrack->position.y;
-    mCam->lookAt(mPosition, mDirection);
+    mCam->lookAt(mPosition, mPosition + mDirection, mUp);
     ci::gl::setMatrices(*mCam);
   }
 }
@@ -32,13 +39,13 @@ ci::CameraPersp& Camera::getCameraPersp() const
 void Camera::setPosition(glm::vec3 position)
 {
   mPosition = std::move(position);
-  mCam->lookAt(mPosition, mDirection);
+  mCam->lookAt(mPosition, mPosition + mDirection, mUp);
 }
 
 void Camera::setDirection(glm::vec3 direction)
 {
   mDirection = std::move(direction);
-  mCam->lookAt(mPosition, mDirection);
+  mCam->lookAt(mPosition, mPosition + mDirection, mUp);
 }
 
 const glm::vec3& Camera::getPosition() const

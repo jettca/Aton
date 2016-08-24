@@ -34,7 +34,7 @@ public:
 void AtonApp::setup()
 {
   auto character = std::make_unique<Aton::Character>(&mEngine);
-  auto camera = std::make_unique<Aton::Camera>(&mEngine, glm::vec3{ 0, 0, 1 },
+  auto camera = std::make_unique<Aton::Camera>(&mEngine, glm::vec3{ 0, 0, -1 },
     character->getSprite()->mTransformP);
   mCam = camera.get();
 
@@ -47,7 +47,7 @@ void AtonApp::setup()
   mEngine.addObject(std::move(camera));
   mEngine.addObject(std::move(character));
   mEngine.addObject(std::make_unique<Aton::LevelRenderer>(&mEngine,
-    tileManager, mEngine.getCamera(), glm::vec2{ .5, .5 }, glm::ivec2{ 1, 1 },
+    tileManager, mEngine.getCamera(), glm::vec2{ 3, 3 }, glm::ivec2{ 1, 1 },
     tileToFile));
 
   FMOD::System_Create(&mSystem);

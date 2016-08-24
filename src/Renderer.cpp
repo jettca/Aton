@@ -10,7 +10,8 @@ namespace Aton
   struct SpriteInstanceData
   {
     glm::vec3 position;
-    float rotation, scale;
+    float rotation;
+    glm::vec2 size;
   };
 }
 
@@ -33,14 +34,14 @@ Renderer::Renderer()
     1);
 
   mSpriteLayout.append(ci::geom::Attrib::CUSTOM_2,
-    1,
+    2,
     sizeof(SpriteInstanceData),
-    offsetof(SpriteInstanceData, scale),
+    offsetof(SpriteInstanceData, size),
     1);
 
   mSpriteMapping[ci::geom::Attrib::CUSTOM_0] = "aPosition";
   mSpriteMapping[ci::geom::Attrib::CUSTOM_1] = "aRotation";
-  mSpriteMapping[ci::geom::Attrib::CUSTOM_2] = "aScale";
+  mSpriteMapping[ci::geom::Attrib::CUSTOM_2] = "aSize";
 
   try
   {
@@ -56,7 +57,6 @@ Renderer::Renderer()
     out.open("log.txt");
     out << "Shader exception: " << e.what() << std::endl;
   }
-
 }
 
 void Renderer::draw()
@@ -81,7 +81,7 @@ void Renderer::draw()
       auto data = SpriteInstanceData{};
       data.position = sprite->mTransformP->position;
       data.rotation = sprite->mTransformP->rotation;
-      data.scale = sprite->mTransformP->scale;
+      data.size = sprite->mTransformP->size;
       spriteData.push_back(data);
     }
     
@@ -97,11 +97,7 @@ void Renderer::draw()
 
     // draw sprites
     texData.first->bind(0);
-
-    {
-      ci::gl::ScopedModelMatrix smm;
-      batch->drawInstanced(spriteData.size());
-    }
+    batch->drawInstanced(spriteData.size());
   }
 
   toRemove.clear();

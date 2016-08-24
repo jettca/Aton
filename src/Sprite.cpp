@@ -15,10 +15,7 @@ Sprite::Sprite(Engine* e, const std::shared_ptr<Texture>& texP)
   : GameObject{ e }
   , mTexP{ texP }
   , mTransformP{ addComponent<Transform2d>() }
-{
-  mTransformP->position = glm::vec3{ 0, 0, 5 };
-  mTransformP->rotation = glm::pi<float>() / 4;
-}
+{}
 
 void Sprite::update(float deltaTime)
 {}
