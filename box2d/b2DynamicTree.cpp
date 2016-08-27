@@ -16,6 +16,8 @@
 * 3. This notice may not be removed or altered from any source distribution.
 */
 
+// INCLUDE STRUCTURE MODIFIED FROM ORIGINAL BOX2D
+
 #include "b2DynamicTree.h"
 #include <string.h>
 
