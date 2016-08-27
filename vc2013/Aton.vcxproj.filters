@@ -60,10 +60,19 @@
     <ClCompile Include="..\src\SpriteRenderer.cpp">
       <Filter>Engine\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\box2d\b2Math.cpp">
+    <ClCompile Include="..\src\Game.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Engine.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\box2d\b2BlockAllocator.cpp">
       <Filter>Engine\box2d</Filter>
     </ClCompile>
-    <ClCompile Include="..\box2d\b2Settings.cpp">
+    <ClCompile Include="..\box2d\b2ChainShape.cpp">
+      <Filter>Engine\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\box2d\b2CircleShape.cpp">
       <Filter>Engine\box2d</Filter>
     </ClCompile>
     <ClCompile Include="..\box2d\b2Collision.cpp">
@@ -75,25 +84,16 @@
     <ClCompile Include="..\box2d\b2DynamicTree.cpp">
       <Filter>Engine\box2d</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Game.cpp">
-      <Filter>Engine\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Engine.cpp">
-      <Filter>Engine\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\box2d\b2CircleShape.cpp">
+    <ClCompile Include="..\box2d\b2EdgeShape.cpp">
       <Filter>Engine\box2d</Filter>
     </ClCompile>
-    <ClCompile Include="..\box2d\b2EdgeShape.cpp">
+    <ClCompile Include="..\box2d\b2Math.cpp">
       <Filter>Engine\box2d</Filter>
     </ClCompile>
     <ClCompile Include="..\box2d\b2PolygonShape.cpp">
       <Filter>Engine\box2d</Filter>
     </ClCompile>
-    <ClCompile Include="..\box2d\b2ChainShape.cpp">
-      <Filter>Engine\box2d</Filter>
-    </ClCompile>
-    <ClCompile Include="..\box2d\b2BlockAllocator.cpp">
+    <ClCompile Include="..\box2d\b2Settings.cpp">
       <Filter>Engine\box2d</Filter>
     </ClCompile>
   </ItemGroup>
@@ -131,16 +131,22 @@
     <ClInclude Include="..\include\SpriteRenderer.hpp">
       <Filter>Engine\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\box2d\b2DynamicTree.h">
+    <ClInclude Include="..\include\Game.hpp">
+      <Filter>Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Engine.hpp">
+      <Filter>Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\box2d\b2Shape.h">
       <Filter>Engine\box2d</Filter>
     </ClInclude>
-    <ClInclude Include="..\box2d\b2GrowableStack.h">
+    <ClInclude Include="..\box2d\b2BlockAllocator.h">
       <Filter>Engine\box2d</Filter>
     </ClInclude>
-    <ClInclude Include="..\box2d\b2Math.h">
+    <ClInclude Include="..\box2d\b2ChainShape.h">
       <Filter>Engine\box2d</Filter>
     </ClInclude>
-    <ClInclude Include="..\box2d\b2Settings.h">
+    <ClInclude Include="..\box2d\b2CircleShape.h">
       <Filter>Engine\box2d</Filter>
     </ClInclude>
     <ClInclude Include="..\box2d\b2Collision.h">
@@ -149,28 +155,22 @@
     <ClInclude Include="..\box2d\b2Distance.h">
       <Filter>Engine\box2d</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Game.hpp">
-      <Filter>Engine\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Engine.hpp">
-      <Filter>Engine\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\box2d\b2CircleShape.h">
+    <ClInclude Include="..\box2d\b2DynamicTree.h">
       <Filter>Engine\box2d</Filter>
     </ClInclude>
     <ClInclude Include="..\box2d\b2EdgeShape.h">
       <Filter>Engine\box2d</Filter>
     </ClInclude>
+    <ClInclude Include="..\box2d\b2GrowableStack.h">
+      <Filter>Engine\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\box2d\b2Math.h">
+      <Filter>Engine\box2d</Filter>
+    </ClInclude>
     <ClInclude Include="..\box2d\b2PolygonShape.h">
       <Filter>Engine\box2d</Filter>
     </ClInclude>
-    <ClInclude Include="..\box2d\b2Shape.h">
-      <Filter>Engine\box2d</Filter>
-    </ClInclude>
-    <ClInclude Include="..\box2d\b2ChainShape.h">
-      <Filter>Engine\box2d</Filter>
-    </ClInclude>
-    <ClInclude Include="..\box2d\b2BlockAllocator.h">
+    <ClInclude Include="..\box2d\b2Settings.h">
       <Filter>Engine\box2d</Filter>
     </ClInclude>
   </ItemGroup>
