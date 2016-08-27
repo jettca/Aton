@@ -2,26 +2,22 @@
 
 #include "AssetManager.hpp"
 
-#include <vector>
-#include <memory>
-#include <chrono>
-
 namespace Aton
 {
-  class Texture;
   class Scene;
+  class Texture;
 
   class Engine
   {
   public:
     Engine();
-    ~Engine();
+
+    AssetManager<Texture> mSpriteManager;
+
+    void update();
 
     void setScene(Scene& scene);
     Scene* getScene() const;
-    void update();
-
-    AssetManager<Texture> mSpriteManager;
 
   private:
     Scene* mSceneP;

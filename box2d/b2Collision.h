@@ -16,10 +16,12 @@
 * 3. This notice may not be removed or altered from any source distribution.
 */
 
+// INCLUDE STRUCTURE MODIFIED FROM ORIGINAL BOX2D
+
 #ifndef B2_COLLISION_H
 #define B2_COLLISION_H
 
-#include <Box2D/Common/b2Math.h>
+#include "b2Math.h"
 #include <limits.h>
 
 /// @file

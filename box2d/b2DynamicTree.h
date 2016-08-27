@@ -16,11 +16,13 @@
 * 3. This notice may not be removed or altered from any source distribution.
 */
 
+// INCLUDE STRUCTURE MODIFIED FROM ORIGINAL BOX2D
+
 #ifndef B2_DYNAMIC_TREE_H
 #define B2_DYNAMIC_TREE_H
 
-#include <Box2D/Collision/b2Collision.h>
-#include <Box2D/Common/b2GrowableStack.h>
+#include "b2Collision.h"
+#include "b2GrowableStack.h"
 
 #define b2_nullNode (-1)
 

@@ -1,96 +1,177 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
-    <Filter Include="Shaders">
+    <Filter Include="Engine">
+      <UniqueIdentifier>{d56009a7-fb8e-4d1c-9c1b-0307d1b8cb47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Shaders">
       <UniqueIdentifier>{83e098a1-aa4e-4474-8d99-c6b264d09b34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\box2d">
+      <UniqueIdentifier>{ee17f429-d028-4449-b7de-349561de69d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Engine\Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\AtonApp.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Engine\Source Files</Filter>
     </ClCompile>
     <ClInclude Include="..\include\Character.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Component.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Engine.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\include\GameObject.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Engine\Header Files</Filter>
     </ClInclude>
     <ClCompile Include="..\src\AssetManager.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Engine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Sprite.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Engine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\LevelRenderer.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Engine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Camera.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Engine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Transform2d.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Engine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Texture.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Engine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\CollisionDetector.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Engine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\SpriteRenderer.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\box2d\b2Math.cpp">
+      <Filter>Engine\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\box2d\b2Settings.cpp">
+      <Filter>Engine\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\box2d\b2Collision.cpp">
+      <Filter>Engine\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\box2d\b2Distance.cpp">
+      <Filter>Engine\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\box2d\b2DynamicTree.cpp">
+      <Filter>Engine\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Game.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Engine.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\box2d\b2CircleShape.cpp">
+      <Filter>Engine\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\box2d\b2EdgeShape.cpp">
+      <Filter>Engine\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\box2d\b2PolygonShape.cpp">
+      <Filter>Engine\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\box2d\b2ChainShape.cpp">
+      <Filter>Engine\box2d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\box2d\b2BlockAllocator.cpp">
+      <Filter>Engine\box2d</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Scene.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\include\AssetManager.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Resources.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Sprite.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\include\LevelRenderer.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Camera.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Transform2d.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Texture.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Grid.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\include\CollisionDetector.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Engine\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\include\SpriteRenderer.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\box2d\b2DynamicTree.h">
+      <Filter>Engine\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\box2d\b2GrowableStack.h">
+      <Filter>Engine\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\box2d\b2Math.h">
+      <Filter>Engine\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\box2d\b2Settings.h">
+      <Filter>Engine\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\box2d\b2Collision.h">
+      <Filter>Engine\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\box2d\b2Distance.h">
+      <Filter>Engine\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Game.hpp">
+      <Filter>Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Engine.hpp">
+      <Filter>Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\box2d\b2CircleShape.h">
+      <Filter>Engine\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\box2d\b2EdgeShape.h">
+      <Filter>Engine\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\box2d\b2PolygonShape.h">
+      <Filter>Engine\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\box2d\b2Shape.h">
+      <Filter>Engine\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\box2d\b2ChainShape.h">
+      <Filter>Engine\box2d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\box2d\b2BlockAllocator.h">
+      <Filter>Engine\box2d</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -103,21 +184,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Character.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Engine.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Engine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Scene.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Engine\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\assets\shaders\sprites.frag">
-      <Filter>Shaders</Filter>
+      <Filter>Engine\Shaders</Filter>
     </None>
     <None Include="..\assets\shaders\sprites.vert">
-      <Filter>Shaders</Filter>
+      <Filter>Engine\Shaders</Filter>
     </None>
   </ItemGroup>
 </Project>

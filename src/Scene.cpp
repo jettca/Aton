@@ -3,7 +3,6 @@
 #include "SpriteRenderer.hpp"
 #include "Camera.hpp"
 
-
 using namespace Aton;
 
 Scene::Scene()

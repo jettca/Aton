@@ -9,9 +9,6 @@ Engine::Engine()
   , mSceneP{ nullptr }
 {}
 
-Engine::~Engine()
-{}
-
 void Engine::setScene(Scene& scene)
 {
   scene.mEngineP = this;
@@ -27,6 +24,7 @@ void Engine::update()
 {
   mSceneP->update(timeSinceUpdate());
 }
+
 
 Engine::mytime_t Engine::clockTime()
 {

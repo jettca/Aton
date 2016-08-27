@@ -16,9 +16,11 @@
 * 3. This notice may not be removed or altered from any source distribution.
 */
 
+// INCLUDE STRUCTURE MODIFIED FROM ORIGINAL BOX2D
+
 #ifndef B2_GROWABLE_STACK_H
 #define B2_GROWABLE_STACK_H
-#include <Box2D/Common/b2Settings.h>
+#include "b2Settings.h"
 #include <string.h>
 
 /// This is a growable LIFO stack with an initial capacity of N.

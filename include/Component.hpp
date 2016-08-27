@@ -3,7 +3,7 @@
 namespace Aton
 {
   class GameObject;
-  class Engine;
+  class Game;
 
   class Component
   {
