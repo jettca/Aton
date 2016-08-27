@@ -3,28 +3,30 @@
 #include "Sprite.hpp"
 #include "Engine.hpp"
 #include "Transform2d.hpp"
+#include "Scene.hpp"
 
 #include <cinder/Cinder.h>
 
 using namespace Aton;
 
-Character::Character(Engine* engineP)
-  : GameObject(engineP)
-  , mRendererP{ addComponent<SpriteRenderer>(
-      std::make_unique<Sprite>(mEngineP,
-        mEngineP->mSpriteManager.getAsset("thing.png"))) }
-  , mTransformP{ mRendererP->getSprite()->mTransformP }
+Character::Character()
+  : mSpriteP{ nullptr }
+{}
+
+void Character::initialize()
 {
-  mTransformP->position = glm::vec3{ 0, 0, -5 };
-  mTransformP->rotation = glm::pi<float>() / 6;
+  auto texP = getObject()->getEngine()->mSpriteManager.getAsset("thing.png");
+  auto objectP = getObject()->getScene()->makeObject();
+  mSpriteP = std::make_unique<Sprite>(*objectP, texP);
+  mSpriteP->mTransformP->position = glm::vec3{ 0, 0, -5 };
+  mSpriteP->mTransformP->rotation = glm::pi<float>() / 6;
 }
 
 void Character::update(float deltaTime)
 {
-  updateComponents(deltaTime);
 }
 
 const Sprite* Character::getSprite() const
 {
-  return mRendererP->getSprite();
+  return mSpriteP.get();
 }

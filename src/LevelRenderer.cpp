@@ -2,21 +2,19 @@
 #include "AssetManager.hpp"
 #include "Texture.hpp"
 #include "Camera.hpp"
-#include "SpriteRenderer.hpp"
 #include "Sprite.hpp"
 #include "Transform2d.hpp"
 #include "Engine.hpp"
+#include "Scene.hpp"
 
 #include <cinder/app/Platform.h>
 
 using namespace Aton;
 
-LevelRenderer::LevelRenderer(Engine* e,
-      const std::shared_ptr<AssetManager<Texture>>& tileManager,
+LevelRenderer::LevelRenderer(const std::shared_ptr<AssetManager<Texture>>& tileManager,
       Camera* cam, glm::vec2 tileSize, glm::ivec2 startTile,
       tiletofile_t tileToFile)
-  : GameObject{ e }
-  , mTileManager{ tileManager }
+  : mTileManager{ tileManager }
   , mCam{ cam }
   , mTileSize{ std::move(tileSize) }
   , mStartTile{ std::move(startTile) }
@@ -24,11 +22,16 @@ LevelRenderer::LevelRenderer(Engine* e,
   , mTileDepth{ -6.0f }
   , mPrevCamCoord{ cam->getPosition() }
   , mStartCamCoord{ mPrevCamCoord }
-  , mPrevNumTilesPerScreen{ tilesPerScreen() }
-  , mGrid{ mPrevNumTilesPerScreen * mTileSize,
-           mTileSize, nullptr,
-           mPrevNumTilesPerScreen * mTileSize / 2.0f }
 {}
+
+void LevelRenderer::initialize()
+{
+  mPrevNumTilesPerScreen = tilesPerScreen();
+  mGridP = std::make_unique<Grid<std::shared_ptr<Tile>>>(
+    mPrevNumTilesPerScreen * mTileSize,
+    mTileSize, nullptr,
+    mPrevNumTilesPerScreen * mTileSize / 2.0f);
+}
 
 void LevelRenderer::update(float deltaTime)
 {
@@ -37,21 +40,21 @@ void LevelRenderer::update(float deltaTime)
 
   if (numTiles != mPrevNumTilesPerScreen)
   {
-    mGrid.resize(numTiles * mTileSize);
+    mGridP->resize(numTiles * mTileSize);
   }
 
-  mGrid.shift(glm::vec2{ camCoord - mPrevCamCoord });
+  mGridP->shift(glm::vec2{ camCoord - mPrevCamCoord });
 
-  for (auto w = size_t{ 0 }; w < mGrid.width(); w++) {
-    for (auto h = size_t{ 0 }; h < mGrid.height(); h++)
+  for (auto w = size_t{ 0 }; w < mGridP->width(); w++) {
+    for (auto h = size_t{ 0 }; h < mGridP->height(); h++)
     {
-      if (mGrid[w][h] == nullptr)
+      if ((*mGridP)[w][h] == nullptr)
       {
-        auto gridCoord = mGrid.getPosFromIndex(w, h);
+        auto gridCoord = mGridP->getPosFromIndex(w, h);
         auto worldCoord = gridCoord + glm::vec2{ camCoord - mStartCamCoord };
         auto tile = loadTile(glm::ivec2{ glm::floor(worldCoord / mTileSize) }
                              + mStartTile);
-        mGrid[w][h] = tile;
+        (*mGridP)[w][h] = tile;
       }
     }
   }
@@ -62,7 +65,7 @@ void LevelRenderer::update(float deltaTime)
 
 glm::vec2 LevelRenderer::tilesPerScreen() const
 {
-  auto& cam = mEngineP->getCamera()->getCameraPersp();
+  auto& cam = getObject()->getScene()->getCamera()->getCameraPersp();
   auto vp = cam.getProjectionMatrix() * cam.getViewMatrix();
   auto invvp = glm::inverse(vp);
 
@@ -84,9 +87,9 @@ std::shared_ptr<LevelRenderer::Tile> LevelRenderer::loadTile(glm::ivec2 coord)
 
   try
   {
-    tileP->renderer = makeComponent<SpriteRenderer>(
-      std::make_unique<Sprite>(mEngineP,
-        mTileManager->getAsset(mTileToFile(coord))));
+    auto objectP = getObject()->getScene()->makeObject();
+    tileP->sprite = std::make_unique<Sprite>(*objectP,
+      mTileManager->getAsset(mTileToFile(coord)));
   }
   catch (ci::app::AssetLoadExc&)
   {
@@ -100,7 +103,7 @@ std::shared_ptr<LevelRenderer::Tile> LevelRenderer::loadTile(glm::ivec2 coord)
   tileP->minCoord = shiftedCoords - mTileSize / 2.0f;
   tileP->maxCoord = shiftedCoords + mTileSize / 2.0f;
 
-  auto spriteTransformP = tileP->renderer->getSprite()->mTransformP;
+  auto spriteTransformP = tileP->sprite->mTransformP;
   spriteTransformP->position.x = shiftedCoords.x;
   spriteTransformP->position.y = shiftedCoords.y;
   spriteTransformP->position.z = mTileDepth;

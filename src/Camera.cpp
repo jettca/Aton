@@ -1,14 +1,12 @@
 #include "Camera.hpp"
 #include "Transform2d.hpp"
 
-#include <cinder/Camera.h>
 #include <cinder/gl/gl.h>
 
 using namespace Aton;
 
-Camera::Camera(Engine* e, glm::vec3 direction, Transform2d* toTrack)
-  : GameObject{ e }
-  , mDirection{ direction }
+Camera::Camera(glm::vec3 direction, Transform2d* toTrack)
+  : mDirection{ direction }
   , mCam{ std::make_unique<ci::CameraPersp>() }
   , mToTrack{ toTrack }
   , mUp{ 0, 1, 0 }

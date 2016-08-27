@@ -1,24 +1,24 @@
 #pragma once
 
-#include "GameObject.hpp"
+#include "Component.hpp"
+#include <memory>
 
 namespace Aton
 {
-  class SpriteRenderer;
   class Sprite;
-  class Transform2d;
 
-  class Character : public GameObject
+  class Character : public Component
   {
   public:
-    Character(Engine* engineP);
+    Character();
 
-    void update(float deltaTime);
+    void initialize() override;
+
+    void update(float deltaTime) override;
 
     const Sprite* getSprite() const;
 
   private:
-    SpriteRenderer* mRendererP;
-    Transform2d* mTransformP;
+    std::unique_ptr<Sprite> mSpriteP;
   };
 }

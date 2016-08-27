@@ -3,22 +3,16 @@
 #include "GameObject.hpp"
 
 #include <glm/glm.hpp>
-
-namespace cinder
-{
-  class CameraPersp;
-}
-namespace ci = cinder;
+#include <cinder/Camera.h>
 
 namespace Aton
 {
-  class Engine;
   class Transform2d;
 
-  class Camera : public GameObject
+  class Camera : public Component
   {
   public:
-    Camera(Engine* e, glm::vec3 direction = glm::vec3{ 0, 0, 1 },
+    Camera(glm::vec3 direction = glm::vec3{ 0, 0, 1 },
       Transform2d* toTrack = nullptr);
 
     void update(float deltaTime) override;

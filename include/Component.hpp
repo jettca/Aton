@@ -8,16 +8,16 @@ namespace Aton
   class Component
   {
   protected:
-    Component();
+    Component() {};
 
   protected:
-    GameObject* mGameObjectP;
-    Engine* mEngineP;
+    GameObject* getObject() const { return mGameObjectP; }
 
     virtual void initialize() {};
     virtual void update(float deltaTime) = 0;
 
   private:
+    GameObject* mGameObjectP;
     friend class GameObject;
   };
 }

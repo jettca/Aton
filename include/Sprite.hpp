@@ -12,16 +12,14 @@ namespace Aton
 
   class Transform2d;
   class Texture;
+  class SpriteRenderer;
 
-  class Sprite : public GameObject
+  class Sprite
   {
-#pragma region constructors
   public:
-    Sprite(Engine* e = nullptr);
-    Sprite(Engine* e, const std::shared_ptr<Texture>& texP);
-#pragma endregion
-
-    void update(float deltaTime) override;
+    Sprite();
+    Sprite(GameObject& obj, const std::shared_ptr<Texture>& texP);
+    ~Sprite();
 
   public:
     Transform2d* const mTransformP;
@@ -29,6 +27,7 @@ namespace Aton
     Tex2dConstRef getTexture() const;
 
   private:
+    SpriteRenderer* mRendererP;
     std::shared_ptr<Texture> mTexP;
   };
 }

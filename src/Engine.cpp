@@ -1,48 +1,31 @@
 #include "Engine.hpp"
-#include "CollisionTree.hpp"
-#include "GameObject.hpp"
-#include "Camera.hpp"
+#include "Scene.hpp"
 
 using namespace Aton;
 
 Engine::Engine()
-  : mRenderer{}
-  , mSpriteManager{ "textures" }
-  , mObjects{}
-  , mCollisionTreeP{ std::make_unique<CollisionTree>() }
+  : mSpriteManager{ "textures" }
   , mLastUpdateTimeP{ nullptr }
+  , mSceneP{ nullptr }
 {}
 
 Engine::~Engine()
 {}
 
-void Engine::addObject(std::unique_ptr<Camera> cameraP)
+void Engine::setScene(Scene& scene)
 {
-  mCameras.push_back(cameraP.get());
-  mObjects.push_back(std::move(cameraP));
+  scene.mEngineP = this;
+  mSceneP = &scene;
 }
 
-void Engine::addObject(std::unique_ptr<GameObject> objectP)
+Scene* Engine::getScene() const
 {
-  mObjects.push_back(std::move(objectP));
-} 
-
-Camera* Engine::getCamera(size_t index)
-{
-  if (index >= mCameras.size())
-    return nullptr;
-  return mCameras[index];
+  return mSceneP;
 }
 
 void Engine::update()
 {
-  auto deltaTime{ timeSinceUpdate() };
-  for (auto& objectP : mObjects)
-  {
-    objectP->update(deltaTime);
-  }
-
-  mRenderer.draw();
+  mSceneP->update(timeSinceUpdate());
 }
 
 Engine::mytime_t Engine::clockTime()

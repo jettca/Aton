@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Renderer.hpp"
 #include "AssetManager.hpp"
 
 #include <vector>
@@ -9,31 +8,23 @@
 
 namespace Aton
 {
-  class GameObject;
-  class CollisionTree;
   class Texture;
-  class Camera;
+  class Scene;
 
   class Engine
   {
-
   public:
     Engine();
     ~Engine();
 
-    void addObject(std::unique_ptr<Camera> cameraP);
-    void addObject(std::unique_ptr<GameObject> objectP);
-    Camera* getCamera(size_t index = 0);
+    void setScene(Scene& scene);
+    Scene* getScene() const;
     void update();
 
-    Renderer mRenderer;
     AssetManager<Texture> mSpriteManager;
 
   private:
-    std::vector<Camera*> mCameras;
-    std::vector<std::unique_ptr<GameObject>> mObjects;
-    std::unique_ptr<CollisionTree> mCollisionTreeP;
-
+    Scene* mSceneP;
     using mytime_t = std::chrono::high_resolution_clock::time_point;
     std::unique_ptr<mytime_t> mLastUpdateTimeP;
 

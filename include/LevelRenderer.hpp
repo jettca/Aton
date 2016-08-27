@@ -1,6 +1,6 @@
 #pragma once
 
-#include "GameObject.hpp"
+#include "Component.hpp"
 #include "Grid.hpp"
 
 #include <memory>
@@ -18,17 +18,19 @@ namespace Aton
   class Texture;
   class SpriteRenderer;
   class Camera;
+  class Sprite;
 
-  class LevelRenderer : public GameObject
+  class LevelRenderer : public Component 
   {
   public:
     using tiletofile_t = std::function<std::string(glm::ivec2)>;
 
   public:
-    LevelRenderer(Engine* e, const std::shared_ptr<AssetManager<Texture>>& tileManager,
+    LevelRenderer(const std::shared_ptr<AssetManager<Texture>>& tileManager,
       Camera* cam, glm::vec2 tileSize, glm::ivec2 startTile,
       tiletofile_t tileToFile);
 
+    void initialize() override;
     void update(float deltaTime) override;
 
   private:
@@ -42,7 +44,7 @@ namespace Aton
   private:
     struct Tile
     {
-      std::unique_ptr<SpriteRenderer> renderer;
+      std::unique_ptr<Sprite> sprite;
       glm::ivec2 coord;
       glm::vec2 minCoord, maxCoord;
     };
@@ -53,6 +55,6 @@ namespace Aton
     glm::vec3 mPrevCamCoord;
     glm::vec3 mStartCamCoord;
     glm::vec2 mPrevNumTilesPerScreen;
-    Grid<std::shared_ptr<Tile>> mGrid;
+    std::unique_ptr<Grid<std::shared_ptr<Tile>>> mGridP;
   };
 }

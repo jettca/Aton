@@ -4,6 +4,8 @@
 #include <vector>
 #include <memory>
 
+#include "Component.hpp"
+
 namespace Aton
 {
   class Scene;
@@ -13,42 +15,45 @@ namespace Aton
   class GameObject 
   {
   public:
-    GameObject(Engine* engineP);
+    ~GameObject() {};
 
-    virtual void update(float deltaTime) = 0;
-
-    ~GameObject();
-
-  protected:
     template<typename C, typename... Args>
     C* addComponent(Args&&... args)
     {
-      auto component = makeComponent<C>(std::forward<Args>(args)...);
+      auto component = std::make_unique<C>(std::forward<Args>(args)...);
       auto raw = component.get();
+      
+      assert(dynamic_cast<Component*>(raw) != nullptr);
+
+      component->mGameObjectP = this;
+      component->initialize();
+
       mComponents.push_back(std::move(component));
       return raw;
     }
 
-    template<typename C, typename... Args>
-    std::unique_ptr<C> makeComponent(Args&&... args)
-    {
-      auto component = std::make_unique<C>(std::forward<Args>(args)...);
-      auto raw = component.get();
-
-      assert(dynamic_cast<Component*>(raw) != nullptr);
-
-      component->mGameObjectP = this;
-      component->mEngineP = mEngineP;
-      component->initialize();
-
-      return component;
-    }
+    Engine* getEngine() const { return mEngineP; }
+    Scene* getScene() const { return mSceneP; }
     
-    void updateComponents(float deltaTime);
+  private:
+    void update(float deltaTime)
+    {
+      for (auto& cP : mComponents)
+        cP->update(deltaTime);
+    }
 
-  protected:
-    Scene* mSceneP;
-    Engine* mEngineP;
+    friend class Scene;
+
+  private:
+    GameObject(Engine* e, Scene* s)
+      : mEngineP{ e }
+      , mSceneP{ s }
+    {};
+
+    Engine* const mEngineP;
+    Scene* const mSceneP;
+
+    friend class Scene;
 
   private:
     std::vector<std::unique_ptr<Component>> mComponents;
