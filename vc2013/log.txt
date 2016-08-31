@@ -1,6 +1,2 @@
-Shader exception: VERTEX: Vertex shader failed to compile with the following errors:
-WARNING: 0:25: warning(#332) :gl_TexCoord is only available in compatibility profile
-ERROR: 0:25: error(#160) Cannot convert from: "default out 4-component vector of vec4" to: "default out highp 2-component vector of vec2"
-ERROR: error(#273) 1 compilation errors.  No code generated
-
-
+Update transform errors:
+GL_NO_ERROR

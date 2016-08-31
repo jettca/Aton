@@ -215,6 +215,7 @@
     <ClCompile Include="..\src\AtonApp.cpp" />
     <ClCompile Include="..\src\Camera.cpp" />
     <ClCompile Include="..\src\Character.cpp" />
+    <ClCompile Include="..\src\Collider2d.cpp" />
     <ClCompile Include="..\src\CollisionDetector.cpp" />
     <ClCompile Include="..\src\Engine.cpp" />
     <ClCompile Include="..\src\Game.cpp" />
@@ -241,6 +242,7 @@
     <ClInclude Include="..\include\AssetManager.hpp" />
     <ClInclude Include="..\include\Camera.hpp" />
     <ClInclude Include="..\include\Character.hpp" />
+    <ClInclude Include="..\include\Collider2d.hpp" />
     <ClInclude Include="..\include\CollisionDetector.hpp" />
     <ClInclude Include="..\include\Component.hpp" />
     <ClInclude Include="..\include\Engine.hpp" />
@@ -256,6 +258,7 @@
     <ClInclude Include="..\include\Transform2d.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\assets\shaders\corners.glsl" />
     <None Include="..\assets\shaders\sprites.frag" />
     <None Include="..\assets\shaders\sprites.vert" />
   </ItemGroup>

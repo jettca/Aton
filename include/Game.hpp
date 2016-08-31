@@ -16,8 +16,17 @@ namespace Aton
 
   class Game : public ci::app::App
   {
+  public:
+    static ci::app::RendererGl::Options getOptions()
+    {
+      ci::app::RendererGl::Options options;
+      options.setVersion(4, 3);
+      return options;
+    }
+
   protected:
     Game();
+
     ~Game();
 
     Engine mEngine;
@@ -27,5 +36,4 @@ namespace Aton
     void resize() override;
   };
 }
-
-#define ATON_GAME(GAME) CINDER_APP(GAME, ci::app::RendererGl)
+#define ATON_GAME(GAME) CINDER_APP(GAME, ci::app::RendererGl(Aton::Game::getOptions()))

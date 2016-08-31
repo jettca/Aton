@@ -10,7 +10,7 @@ namespace Aton
   struct SpriteInstanceData
   {
     glm::vec3 position;
-    float rotation;
+    glm::f64 rotation;
     glm::vec2 size;
   };
 }
@@ -55,7 +55,7 @@ SpriteRenderer::SpriteRenderer()
   {
     std::ofstream out;
     out.open("log.txt");
-    out << "Shader exception: " << e.what() << std::endl;
+    out << "Sprite shader exception:\n" << e.what() << std::endl;
   }
 }
 
@@ -95,7 +95,7 @@ void SpriteRenderer::draw()
     // create VBO
     auto spriteVbo = ci::gl::Vbo::create(GL_ARRAY_BUFFER,
       spriteData.size() * sizeof(SpriteInstanceData),
-      spriteData.data(), GL_DYNAMIC_DRAW);
+      spriteData.data(), GL_STATIC_DRAW);
 
     auto rectVboMesh = ci::gl::VboMesh::create(mRectMesh);
     rectVboMesh->appendVbo(mSpriteLayout, spriteVbo);

@@ -1,4 +1,6 @@
 #include "Transform2d.hpp"
+#include "GameObject.hpp"
+#include "Scene.hpp"
 
 using namespace Aton;
 

@@ -2,6 +2,8 @@
 
 #include <memory>
 #include <vector>
+#include <set>
+#include <cinder/gl/GlslProg.h>
 
 namespace Aton
 {
@@ -10,6 +12,7 @@ namespace Aton
   class GameObject;
   class Engine;
   class SpriteRenderer;
+  class Transform2d;
 
   class Scene
   {
@@ -25,8 +28,11 @@ namespace Aton
     Camera* getCamera(size_t index = 0);
     Engine* getEngine() { return mEngineP; }
     SpriteRenderer* getRenderer() { return mRendererP.get(); }
-
-  public:
+    CollisionDetector* getCollisionDetector() { return mCollisionsP.get(); }
+    
+  private:
+    void updateTransformAABBs();
+    ci::gl::GlslProgRef mCornerProg;
 
   private:
     Engine* mEngineP;
@@ -36,6 +42,8 @@ namespace Aton
     std::vector<Camera*> mCameras;
     std::vector<std::unique_ptr<GameObject>> mObjects;
     std::vector<std::unique_ptr<GameObject>> mNewObjects;
+
+    std::set<Transform2d*> mTransforms;
 
     friend class Engine;
   };

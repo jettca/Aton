@@ -14,7 +14,7 @@ namespace Aton
     GameObject* getObject() const { return mGameObjectP; }
 
     virtual void initialize() {};
-    virtual void update(float deltaTime) = 0;
+    virtual void update(float deltaTime) {};
 
   private:
     GameObject* mGameObjectP;
