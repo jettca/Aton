@@ -27,11 +27,6 @@ public:
 
 void MyGame::setup()
 {
-  std::ofstream out;
-  out.open("log.txt");
-  auto version = ci::gl::getVersionString();
-  out << "Version: " << version << std::endl;
-
   mEngine.setScene(mScene);
 
   auto character = mScene.makeObject()->addComponent<Character>();

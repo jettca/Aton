@@ -3,7 +3,6 @@
 #include <memory>
 #include <vector>
 #include <set>
-#include <cinder/gl/GlslProg.h>
 
 namespace Aton
 {
@@ -30,10 +29,6 @@ namespace Aton
     SpriteRenderer* getRenderer() { return mRendererP.get(); }
     CollisionDetector* getCollisionDetector() { return mCollisionsP.get(); }
     
-  private:
-    void updateTransformAABBs();
-    ci::gl::GlslProgRef mCornerProg;
-
   private:
     Engine* mEngineP;
 

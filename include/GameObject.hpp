@@ -32,6 +32,19 @@ namespace Aton
       return raw;
     }
 
+    template<typename C>
+    std::vector<C*> getComponent()
+    {
+      std::vector<C*> components;
+      for (auto& cP : mComponents)
+      {
+        auto componentP = dynamic_cast<C*>(cP.get());
+        if (componentP)
+          components.push_back(componentP);
+      }
+      return components;
+    }
+
     Engine* getEngine() const { return mEngineP; }
     Scene* getScene() const { return mSceneP; }
     
@@ -48,7 +61,7 @@ namespace Aton
     GameObject(Engine* e, Scene* s)
       : mEngineP{ e }
       , mSceneP{ s }
-    {};
+    {}
 
     Engine* const mEngineP;
     Scene* const mSceneP;

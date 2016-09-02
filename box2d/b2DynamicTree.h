@@ -17,6 +17,7 @@
 */
 
 // INCLUDE STRUCTURE MODIFIED FROM ORIGINAL BOX2D
+// CALLBACK CODE MODIFIED FROM ORIGINAL BOX2D
 
 #ifndef B2_DYNAMIC_TREE_H
 #define B2_DYNAMIC_TREE_H
@@ -91,7 +92,7 @@ public:
 	/// Query an AABB for overlapping proxies. The callback class
 	/// is called for each proxy that overlaps the supplied AABB.
 	template <typename T>
-	void Query(T* callback, const b2AABB& aabb) const;
+	void Query(T callback, const b2AABB& aabb) const;
 
 	/// Ray-cast against the proxies in the tree. This relies on the callback
 	/// to perform a exact ray-cast in the case were the proxy contains a shape.
@@ -168,7 +169,7 @@ inline const b2AABB& b2DynamicTree::GetFatAABB(int32 proxyId) const
 }
 
 template <typename T>
-inline void b2DynamicTree::Query(T* callback, const b2AABB& aabb) const
+inline void b2DynamicTree::Query(T callback, const b2AABB& aabb) const
 {
 	b2GrowableStack<int32, 256> stack;
 	stack.Push(m_root);
@@ -187,7 +188,7 @@ inline void b2DynamicTree::Query(T* callback, const b2AABB& aabb) const
 		{
 			if (node->IsLeaf())
 			{
-				bool proceed = callback->QueryCallback(nodeId);
+        bool proceed = callback(node->userData);
 				if (proceed == false)
 				{
 					return;

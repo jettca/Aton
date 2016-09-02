@@ -56,6 +56,7 @@ SpriteRenderer::SpriteRenderer()
     std::ofstream out;
     out.open("log.txt");
     out << "Sprite shader exception:\n" << e.what() << std::endl;
+    throw e;
   }
 }
 
