@@ -206,5 +206,8 @@
     <None Include="..\assets\shaders\corners.glsl">
       <Filter>Engine\Shaders</Filter>
     </None>
+    <None Include="..\assets\shaders\collision2d.glsl">
+      <Filter>Engine\Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

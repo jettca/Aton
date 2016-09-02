@@ -261,6 +261,7 @@
     <None Include="..\assets\shaders\corners.glsl" />
     <None Include="..\assets\shaders\sprites.frag" />
     <None Include="..\assets\shaders\sprites.vert" />
+    <None Include="..\assets\shaders\collision2d.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
