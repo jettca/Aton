@@ -96,7 +96,6 @@ std::shared_ptr<LevelRenderer::Tile> LevelRenderer::loadTile(glm::ivec2 coord)
     return nullptr;
   }
 
-
   tileP->coord = std::move(coord);
 
   auto shiftedCoords = glm::vec2{ tileP->coord - mStartTile } * mTileSize;

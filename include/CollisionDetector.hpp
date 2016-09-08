@@ -24,8 +24,6 @@ namespace Aton
   class Collider2d;
   class Transform2d;
 
-  struct Transform2dData;
-
   class CollisionDetector
   {
   public:
@@ -47,10 +45,16 @@ namespace Aton
     std::vector<int32> mProxies;
     std::set<Collider2d*> mToRemove;
     std::vector<glm::vec2> mCorners;
+
+    struct Transform2dData
+    {
+      glm::vec2 position;
+      glm::f64 rotation;
+      glm::vec2 size;
+    };
+
     std::vector<Transform2dData> mLastFrameTransforms;
 
     static const int32 sProxyDefault = -1;
-
-    friend class Scene;
   };
 }

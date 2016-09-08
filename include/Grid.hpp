@@ -14,6 +14,8 @@ namespace Aton
 
     T& operator()(const glm::vec2& pos);
     const T& operator()(const glm::vec2& pos) const;
+    inline glm::ivec2 getIndexFromPos(const glm::vec2& pos) const;
+
     T* operator[](size_t i);
     const T* operator[](size_t i) const;
 
@@ -57,15 +59,21 @@ Grid<T>::Grid(glm::vec2 gridSize, glm::vec2 cellSize,
 template<typename T>
 T& Grid<T>::operator()(const glm::vec2& pos)
 {
-  auto coord = glm::ivec2{ (pos + mZeroPos + mTileOffset) / mCellSize };
+  auto coord = getIndexFromPos(pos);
   return mGrid[coord.x * mHeight + coord.y];
 }
 
 template<typename T>
 const T& Grid<T>::operator()(const glm::vec2& pos) const
 {
-  auto coord = glm::ivec2{ (pos + mZeroPos + mTileOffset) / mCellSize };
+  auto coord = getIndexFromPos(pos);
   return mGrid[coord.x * mHeight + coord.y];
+}
+
+template<typename T>
+glm::ivec2 Grid<T>::getIndexFromPos(const glm::vec2& pos) const
+{
+  return glm::ivec2{ (pos + mZeroPos) / mCellSize + mTileOffset };
 }
 
 template<typename T>
@@ -85,6 +93,7 @@ void Grid<T>::resize(glm::vec2 size)
 {
   if (size.x < 0 || size.y < 0)
     return;
+
   auto oldGridSize = std::move(mGridSize);
   auto oldWidth = mWidth;
   auto oldHeight = mHeight;
@@ -108,23 +117,42 @@ void Grid<T>::resize(glm::vec2 size)
 template<typename T>
 void Grid<T>::shift(const glm::vec2& delta)
 {
-  auto oldGrid = std::move(mGrid);
-  mGrid = std::vector<T>(mWidth * mHeight, mDefaultValue);
+  auto cellDelta = delta / mCellSize;
 
-  auto newOffset = mTileOffset + delta - glm::vec2{ glm::ivec2{ delta } };
-  if (newOffset.x < 0) newOffset.x = 1 - newOffset.x;
-  if (newOffset.y < 0) newOffset.y = 1 - newOffset.y;
-  mTileOffset = newOffset - glm::vec2{ glm::ivec2{ newOffset } };
+  auto intDelta = glm::ivec2{ cellDelta };
+  auto shiftGridX = intDelta.x;
+  auto shiftGridY = intDelta.y;
 
-  auto flooredDelta = glm::ivec2{ glm::floor(delta) };
-  for (auto x = size_t{ 0 }; x < mWidth; x++) {
-    for (auto y = size_t{ 0 }; y < mHeight; y++)
+  mTileOffset = mTileOffset + cellDelta - glm::vec2{ intDelta };
+  if (glm::abs(mTileOffset.x) > 0.5)
+  {
+    auto sign = glm::sign(mTileOffset.x);
+    mTileOffset.x -= sign;
+    shiftGridX += static_cast<int>(sign);
+  }
+  if (glm::abs(mTileOffset.y) > 0.5)
+  {
+    auto sign = glm::sign(mTileOffset.y);
+    mTileOffset.y -= sign;
+    shiftGridY += static_cast<int>(sign);
+  }
+
+  if (shiftGridX != 0 || shiftGridY != 0)
+  {
+    auto oldGrid = std::move(mGrid);
+    mGrid = std::vector<T>(mWidth * mHeight, mDefaultValue);
+
+    auto flooredDelta = glm::ivec2{ glm::floor(delta) };
+    for (auto x = size_t{ 0 }; x < mWidth; x++)
     {
-      auto newX = x + flooredDelta.x;
-      auto newY = y + flooredDelta.y;
-      if (newY < mHeight && newX < mWidth && newY >= 0 && newX >= 0)
+      auto newX = x - static_cast<long>(shiftGridX);
+      for (auto y = size_t{ 0 }; y < mHeight; y++)
       {
-        mGrid[newX * mHeight + newY] = oldGrid[x * mHeight + y];
+        auto newY = y - static_cast<long>(shiftGridY);
+        if (newY < mHeight && newX < mWidth)
+        {
+          mGrid[newX * mHeight + newY] = oldGrid[x * mHeight + y];
+        }
       }
     }
   }
@@ -133,5 +161,5 @@ void Grid<T>::shift(const glm::vec2& delta)
 template<typename T>
 glm::vec2 Grid<T>::getPosFromIndex(int w, int h) const
 {
-  return glm::vec2{ w, h } * mCellSize - mZeroPos - mTileOffset;
+  return (glm::vec2{ w, h } - mTileOffset) * mCellSize - mZeroPos;
 }

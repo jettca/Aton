@@ -24,6 +24,11 @@ namespace Aton
       return options;
     }
 
+    void keyDown(ci::app::KeyEvent e) override;
+    void keyUp(ci::app::KeyEvent e) override;
+    void mouseDown(ci::app::MouseEvent e) override;
+    void mouseUp(ci::app::MouseEvent e) override;
+
   protected:
     Game();
 

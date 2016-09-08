@@ -3,6 +3,7 @@
 #include <memory>
 #include <vector>
 #include <set>
+#include <functional>
 
 namespace Aton
 {
@@ -37,8 +38,6 @@ namespace Aton
     std::vector<Camera*> mCameras;
     std::vector<std::unique_ptr<GameObject>> mObjects;
     std::vector<std::unique_ptr<GameObject>> mNewObjects;
-
-    std::set<Transform2d*> mTransforms;
 
     friend class Engine;
   };

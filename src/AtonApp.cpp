@@ -46,11 +46,11 @@ void MyGame::setup()
   FMOD::System_Create(&mSystem);
   mSystem->init(32, FMOD_INIT_NORMAL | FMOD_INIT_ENABLE_PROFILE, NULL);
 
-  mSystem->createSound(ci::app::getAssetPath("Blank__Kytt_-_08_-_RSPN.mp3").string().c_str(),
-    FMOD_SOFTWARE, NULL, &mSound);
-  mSound->setMode(FMOD_LOOP_NORMAL);
+//  mSystem->createSound(ci::app::getAssetPath("Blank__Kytt_-_08_-_RSPN.mp3").string().c_str(),
+//    FMOD_SOFTWARE, NULL, &mSound);
+//  mSound->setMode(FMOD_LOOP_NORMAL);
 
-  mSystem->playSound(FMOD_CHANNEL_FREE, mSound, false, &mChannel);
+//  mSystem->playSound(FMOD_CHANNEL_FREE, mSound, false, &mChannel);
 }
 
 ATON_GAME(MyGame)

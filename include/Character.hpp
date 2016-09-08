@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Component.hpp"
+
 #include <memory>
 
 namespace Aton
@@ -19,6 +20,7 @@ namespace Aton
     const Sprite* getSprite() const;
 
   private:
+    float mSpeed;
     std::unique_ptr<Sprite> mSpriteP;
   };
 }

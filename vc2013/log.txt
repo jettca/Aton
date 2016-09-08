@@ -1,2 +1,6 @@
-Update transform errors:
-GL_NO_ERROR
+Collision2D shader exception:
+COMPUTE: Compute shader failed to compile with the following errors:
+ERROR: 0:31: error(#202) No matching overloaded function found: atomicOr
+ERROR: error(#273) 1 compilation errors.  No code generated
+
+

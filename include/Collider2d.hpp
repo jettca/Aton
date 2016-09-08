@@ -30,8 +30,8 @@ namespace Aton
 
   public:
     Collider2d(const std::shared_ptr<Texture>& textureP,
-      Transform2d* transformP, callback_t callback,
-      std::set<std::string> layers);
+      Transform2d* transformP, callback_t callback = [](GameObject&) {},
+      std::set<std::string> layers = std::set<std::string>{});
     ~Collider2d();
 
     void initialize() override;

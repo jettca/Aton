@@ -6,16 +6,6 @@
 #include <cinder/app/App.h>
 #include <cinder/gl/gl.h>
 
-namespace Aton
-{
-  struct Transform2dData
-  {
-    glm::vec2 position;
-    glm::f64 rotation;
-    glm::vec2 size;
-  };
-}
-
 using namespace Aton;
 
 CollisionDetector::CollisionDetector()
@@ -56,33 +46,34 @@ void CollisionDetector::update()
 
 void CollisionDetector::updateLists()
 {
-  if (mToRemove.empty())
-    return;
-
-  auto oldColliders = std::move(mColliders);
-  auto numOldColliders = oldColliders.size();
-
-  auto oldProxies = std::move(mProxies);
-  auto oldLastFrameTransforms = std::move(mLastFrameTransforms);
-
-  mColliders.clear();
-  mProxies.clear();
-  oldLastFrameTransforms.clear();
-  mColliders.reserve(numOldColliders - mToRemove.size());
-  mProxies.reserve(mColliders.size());
-  mLastFrameTransforms.reserve(mColliders.size());
-
-  for (auto t = int{ 0 }; t < numOldColliders; t++)
+  if (!mToRemove.empty())
   {
-    auto& collider = mColliders[t];
-    if (mToRemove.find(collider) == mToRemove.end())
+    auto oldColliders = std::move(mColliders);
+    auto numOldColliders = oldColliders.size();
+
+    auto oldProxies = std::move(mProxies);
+    auto oldLastFrameTransforms = std::move(mLastFrameTransforms);
+
+    mColliders.clear();
+    mProxies.clear();
+    oldLastFrameTransforms.clear();
+    mColliders.reserve(numOldColliders - mToRemove.size());
+    mProxies.reserve(mColliders.size());
+    mLastFrameTransforms.reserve(mColliders.size());
+
+    for (auto t = size_t{ 0 }; t < numOldColliders; t++)
     {
-      mColliders.push_back(collider);
-      mProxies.push_back(oldProxies[t]);
-      mLastFrameTransforms.push_back(oldLastFrameTransforms[t]);
+      auto& collider = mColliders[t];
+      if (mToRemove.find(collider) == mToRemove.end())
+      {
+        mColliders.push_back(collider);
+        mProxies.push_back(oldProxies[t]);
+        mLastFrameTransforms.push_back(oldLastFrameTransforms[t]);
+      }
     }
+    mToRemove.clear();
   }
-  mToRemove.clear();
+
   mCorners.resize(mColliders.size() * 4);
 }
 
@@ -137,7 +128,7 @@ void CollisionDetector::checkForCollisions()
 {
   // compute AABBs
   auto numAABBs = mColliders.size();
-  for (auto c = int{ 0 }; c < numAABBs; c++)
+  for (auto c = size_t{ 0 }; c < numAABBs; c++)
   {
     auto aabb = b2AABB{};
     aabb.lowerBound = b2Vec2{ std::numeric_limits<float>::infinity(),
@@ -160,7 +151,7 @@ void CollisionDetector::checkForCollisions()
 
     if (mProxies[c] == sProxyDefault)
     {
-      mTree.CreateProxy(aabb, mColliders[c]);
+      mProxies[c] = mTree.CreateProxy(aabb, mColliders[c]);
     }
     else
     {
@@ -173,31 +164,34 @@ void CollisionDetector::checkForCollisions()
                 , position.y - mLastFrameTransforms[c].position.y };
 
         // don't extend aabb if collider "teleports"
-        if (deltapos.Length < aabb.GetPerimeter) 
+        if (deltapos.Length() < aabb.GetPerimeter()) 
           displacement = deltapos;
       }
       mTree.MoveProxy(mProxies[c], aabb, displacement);
     }
   }
 
-  for (auto c = int{ 0 }; c < numAABBs; c++)
+  if (!mLastFrameTransforms.empty())
   {
-    auto collider = mColliders[c];
-    auto lastFrameT = mLastFrameTransforms[c];
-    mTree.Query([collider, &lastFrameT](void* data) {
-      if (data != collider && 
+    for (auto c = size_t{ 0 }; c < numAABBs; c++)
+    {
+      auto collider = mColliders[c];
+      auto lastFrameT = mLastFrameTransforms[c];
+      mTree.Query([collider, &lastFrameT](void* data) {
+        if (data != collider &&
           collider->checkForCollision(*static_cast<Collider2d*>(data)))
-      {
-        auto transformP = collider->getTransform();
-        transformP->position.x = lastFrameT.position.x;
-        transformP->position.y = lastFrameT.position.y;
-        transformP->rotation = lastFrameT.rotation;
-        transformP->size = lastFrameT.size;
+        {
+          auto transformP = collider->getTransform();
+          transformP->position.x = lastFrameT.position.x;
+          transformP->position.y = lastFrameT.position.y;
+          transformP->rotation = lastFrameT.rotation;
+          transformP->size = lastFrameT.size;
 
-        collider->mCallback(*collider->getObject());
-      }
-      return true;
-    }, mTree.GetFatAABB(mProxies[c]));
+          collider->mCallback(*collider->getObject());
+        }
+        return true;
+      }, mTree.GetFatAABB(mProxies[c]));
+    }
   }
 }
 
@@ -206,7 +200,7 @@ void CollisionDetector::updateLastFrameTransforms()
   auto numColliders = mColliders.size();
   mLastFrameTransforms.resize(numColliders);
 
-  for (auto c = int{ 0 }; c < numColliders; c++)
+  for (auto c = size_t{ 0 }; c < numColliders; c++)
   {
     auto transformP = mColliders[c]->getTransform();
     mLastFrameTransforms[c].position = glm::vec2{ transformP->position };
