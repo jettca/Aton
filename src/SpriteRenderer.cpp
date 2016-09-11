@@ -105,7 +105,7 @@ void SpriteRenderer::draw()
 
     // draw sprites
     texData.first->bind(0);
-    batch->drawInstanced(spriteData.size());
+    batch->drawInstanced(static_cast<GLsizei>(spriteData.size()));
   }
   for (auto& tex : texToRemove)
   {

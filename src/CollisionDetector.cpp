@@ -118,7 +118,7 @@ void CollisionDetector::updateTransformCorners()
   ci::gl::bindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, cornersBuffer);
   ci::gl::bindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, transformsBuffer);
 
-  ci::gl::dispatchCompute(numPoints / 128 + 1, 1, 1);
+  ci::gl::dispatchCompute(static_cast<GLuint>(numPoints / 128) + 1, 1, 1);
 
   cornersBuffer->getBufferSubData(0, cornerSize * numPoints,
     mCorners.data());

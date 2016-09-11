@@ -24,7 +24,7 @@ namespace Aton
 
     size_t height() const { return mHeight; }
     size_t width() const { return mWidth; }
-    glm::vec2 getPosFromIndex(int w, int h) const;
+    glm::vec2 getPosFromIndex(size_t w, size_t h) const;
 
     typename std::vector<T>::iterator begin() { return mGrid.begin(); }
     typename std::vector<T>::const_iterator begin() const { return mGrid.begin(); }
@@ -159,7 +159,7 @@ void Grid<T>::shift(const glm::vec2& delta)
 }
 
 template<typename T>
-glm::vec2 Grid<T>::getPosFromIndex(int w, int h) const
+glm::vec2 Grid<T>::getPosFromIndex(size_t w, size_t h) const
 {
   return (glm::vec2{ w, h } - mTileOffset) * mCellSize - mZeroPos;
 }
