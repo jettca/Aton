@@ -7,8 +7,11 @@
 #include "Sprite.hpp"
 #include "LevelRenderer.hpp"
 #include "AssetManager.hpp"
+#include "Transform2d.hpp"
+#include "Collider2d.hpp"
 
 using namespace Aton;
+class Meme;
 
 class MyGame : public Game
 {
@@ -18,6 +21,9 @@ public:
   FMOD::System *mSystem;
   FMOD::Sound *mSound;
   FMOD::Channel	*mChannel;
+  std::shared_ptr<Sprite> mSprite;
+  std::shared_ptr<Meme> mLady;
+
 
   Scene mScene;
   Camera* mCam;
@@ -28,6 +34,11 @@ public:
 void MyGame::setup()
 {
   mEngine.setScene(mScene);
+
+  auto x = mScene.makeObject();
+  mSprite = std::make_shared<Sprite>( *x, mEngine.mSpriteManager.getAsset("thing.png") );
+  x->addComponent<Collider2d>(mSprite->getTexture(), mSprite->mTransformP);
+  mSprite->mTransformP->position = glm::vec3{ 3, 3, -5 };
 
   auto character = mScene.makeObject()->addComponent<Character>();
   mCam = mScene.makeObject()->addComponent<Camera>(
@@ -51,6 +62,8 @@ void MyGame::setup()
 //  mSound->setMode(FMOD_LOOP_NORMAL);
 
 //  mSystem->playSound(FMOD_CHANNEL_FREE, mSound, false, &mChannel);
+
+
 }
 
 ATON_GAME(MyGame)

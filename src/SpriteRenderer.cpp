@@ -117,7 +117,7 @@ void SpriteRenderer::draw()
 
 void SpriteRenderer::addSprite(const Sprite& sprite)
 {
-  mTexToSprite[sprite.getTexture()].push_back(&sprite);
+  mTexToSprite[sprite.getTexture()->mTexP].push_back(&sprite);
 }
 
 void SpriteRenderer::removeSprite(const Sprite& sprite)

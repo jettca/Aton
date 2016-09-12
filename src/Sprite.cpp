@@ -29,7 +29,7 @@ Sprite::~Sprite()
   mRendererP->removeSprite(*this);
 }
 
-Tex2dConstRef Sprite::getTexture() const
+std::shared_ptr<Texture> Sprite::getTexture() const
 {
-  return mTexP->mTexP;
+  return mTexP;
 }

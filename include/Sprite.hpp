@@ -8,8 +8,6 @@
 
 namespace Aton
 {
-  using Tex2dConstRef = std::shared_ptr<const ci::gl::Texture2d>;
-
   class Transform2d;
   class Texture;
   class SpriteRenderer;
@@ -24,7 +22,7 @@ namespace Aton
   public:
     Transform2d* const mTransformP;
 
-    Tex2dConstRef getTexture() const;
+    std::shared_ptr<Texture> getTexture() const;
 
   private:
     SpriteRenderer* mRendererP;
