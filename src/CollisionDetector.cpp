@@ -138,15 +138,11 @@ void CollisionDetector::checkForCollisions()
     for (auto v = int{ 0 }; v < 4; v++)
     {
       auto& corner = mCorners[4 * c + v];
-      if (corner.x < aabb.lowerBound.x)
-        aabb.lowerBound.x = corner.x;
-      else if (corner.x > aabb.upperBound.x)
-        aabb.upperBound.x = corner.x;
+      aabb.lowerBound.x = std::min(aabb.lowerBound.x, corner.x);
+      aabb.upperBound.x = std::max(aabb.upperBound.x, corner.x);
 
-      if (corner.y < aabb.lowerBound.y)
-        aabb.lowerBound.y = corner.y;
-      else if (corner.y > aabb.upperBound.y)
-        aabb.upperBound.y = corner.y;
+      aabb.lowerBound.y = std::min(aabb.lowerBound.y, corner.y);
+      aabb.upperBound.y = std::max(aabb.upperBound.y, corner.y);
     }
 
     if (mProxies[c] == sProxyDefault)

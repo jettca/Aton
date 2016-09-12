@@ -15,7 +15,7 @@ void main()
 {
   float cosRotation = cos(aRotation);
   float sinRotation = sin(aRotation);
-  mat2 rotation = mat2(cosRotation, -sinRotation, sinRotation, cosRotation);
+  mat2 rotation = mat2(vec2(cosRotation, sinRotation), vec2(-sinRotation, cosRotation));
   vec4 position = ciPosition;
   position.xy = rotation * (aSize.xy * position.xy);
   position.xy += aPosition.xy;

@@ -16,7 +16,7 @@ namespace Aton
   {
   public:
     Sprite();
-    Sprite(GameObject& obj, const std::shared_ptr<Texture>& texP);
+    Sprite(GameObject& obj, const std::shared_ptr<Texture>& texP, float depth = -5);
     ~Sprite();
 
   public:

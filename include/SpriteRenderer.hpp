@@ -31,7 +31,7 @@ namespace Aton
     void createRectMesh();
 
   private:
-    std::map<Tex2dConstRef, std::vector<const Sprite*>> mTexToSprite;
+    std::map<std::pair<float, Tex2dConstRef>, std::vector<const Sprite*>> mTexToSprite;
     std::set<const Sprite*> mToRemove;
 
     ci::geom::BufferLayout mSpriteLayout;

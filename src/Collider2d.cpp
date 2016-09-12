@@ -47,7 +47,7 @@ void Collider2d::initialize()
 
 bool Collider2d::checkForCollision(const Collider2d& collider)
 {
-  bool hasIntersectingLayer = false;
+  bool hasIntersectingLayer = mLayers.size() == 0;
   for (auto l : mLayers)
   {
     if (collider.mLayers.find(l) != collider.mLayers.end())
@@ -57,27 +57,33 @@ bool Collider2d::checkForCollision(const Collider2d& collider)
     }
   }
 
-  if (mLayers.size() > 0 && !hasIntersectingLayer)
+  if (!hasIntersectingLayer)
     return false;
 
   // compute transform between colliders
+  auto translate = mTransformP->position - collider.mTransformP->position;
+  auto translateMat = glm::mat3{
+    1, 0, 0, 
+    0, 1, 0,
+    translate.x, translate.y, 1
+  };
+
   auto scale = glm::mat3{};
-  scale[0][0] = collider.mTransformP->size.x / mTransformP->size.x;
-  scale[1][1] = collider.mTransformP->size.y / mTransformP->size.y;
+  scale[0][0] = mTransformP->size.x / collider.mTransformP->size.x;
+  scale[0][0] = mTransformP->size.y / collider.mTransformP->size.y;
   scale[2][2] = 1;
 
-  auto angle = collider.mTransformP->rotation - mTransformP->rotation;
+  auto angle = mTransformP->rotation - collider.mTransformP->rotation;
   auto sinAngle = glm::sin(angle);
   auto cosAngle = glm::cos(angle);
 
-  auto translate = collider.mTransformP->position - mTransformP->position;
-  auto rotateTranslate = glm::mat3{
-    cosAngle, sinAngle, translate.x,
-    -sinAngle, cosAngle, translate.y,
+  auto rotate = glm::mat3{
+    cosAngle, sinAngle, 0,
+    -sinAngle, cosAngle, 0,
     0, 0, 1
   };
 
-  auto transform = rotateTranslate * scale;
+  auto transform = rotate * scale * translateMat;
 
   // set up shader
   auto collides = std::vector<uint32>{ 0 };
@@ -89,8 +95,10 @@ bool Collider2d::checkForCollision(const Collider2d& collider)
 
   mCollisionProg->bind();
 
-  mTextureP->mTexP->bind(0);
-  collider.mTextureP->mTexP->bind(1);
+  auto format = mTextureP->mTexP->getInternalFormat();
+  glBindImageTexture(0, mTextureP->mTexP->getId(), 0, GL_FALSE, 0, GL_READ_ONLY, GL_RGBA8);
+  glBindImageTexture(1, collider.mTextureP->mTexP->getId(), 0, GL_FALSE, 0, GL_READ_ONLY, GL_RGBA8);
+
   mCollisionProg->uniform("transform", transform);
 
   ci::gl::bindBufferBase(GL_SHADER_STORAGE_BUFFER, 3, collidesBuffer);

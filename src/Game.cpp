@@ -58,8 +58,8 @@ void Game::draw()
 {
   ci::gl::clear();
   ci::gl::enableAlphaBlending(true);
-  ci::gl::enableDepth();
 
+  ci::gl::color(ci::ColorA{ 1, 1, 1, .2f });
   mEngine.update();
 }
 

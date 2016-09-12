@@ -62,7 +62,7 @@ SpriteRenderer::SpriteRenderer()
 
 void SpriteRenderer::draw()
 {
-  auto texToRemove = std::vector<Tex2dConstRef>{};
+  auto texToRemove = std::vector<std::pair<float, Tex2dConstRef>>{};
   for (auto& texData : mTexToSprite)
   {
     // remove removed sprites
@@ -104,7 +104,7 @@ void SpriteRenderer::draw()
     auto batch = ci::gl::Batch::create(rectVboMesh, mSpriteShaderP, mSpriteMapping);
 
     // draw sprites
-    texData.first->bind(0);
+    texData.first.second->bind(0);
     batch->drawInstanced(static_cast<GLsizei>(spriteData.size()));
   }
   for (auto& tex : texToRemove)
@@ -117,7 +117,8 @@ void SpriteRenderer::draw()
 
 void SpriteRenderer::addSprite(const Sprite& sprite)
 {
-  mTexToSprite[sprite.getTexture()->mTexP].push_back(&sprite);
+  mTexToSprite[std::make_pair(sprite.mTransformP->position.z,
+    sprite.getTexture()->mTexP)].push_back(&sprite);
 }
 
 void SpriteRenderer::removeSprite(const Sprite& sprite)

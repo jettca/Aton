@@ -16,11 +16,12 @@ Sprite::Sprite()
   , mRendererP{ nullptr }
 {}
 
-Sprite::Sprite(GameObject& obj, const std::shared_ptr<Texture>& texP)
+Sprite::Sprite(GameObject& obj, const std::shared_ptr<Texture>& texP, float depth)
   : mTexP{ texP }
   , mTransformP{ obj.addComponent<Transform2d>() }
   , mRendererP{ obj.getScene()->getRenderer() }
 {
+  mTransformP->position.z = depth;
   mRendererP->addSprite(*this);
 }
 

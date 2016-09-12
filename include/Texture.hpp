@@ -27,6 +27,6 @@ namespace Aton
   public:
     Texture(const ci::DataSourceRef& dataP);
 
-    const ci::gl::Texture2dRef mTexP;
+    ci::gl::Texture2dRef mTexP;
   };
 }
