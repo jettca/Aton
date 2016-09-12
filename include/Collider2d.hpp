@@ -30,8 +30,8 @@ namespace Aton
 
   public:
     Collider2d(const std::shared_ptr<Texture>& textureP,
-      Transform2d* transformP, callback_t callback = [](GameObject&) {},
-      std::set<std::string> layers = std::set<std::string>{});
+      callback_t callback, std::set<std::string> layers);
+
     ~Collider2d();
 
     void initialize() override;
@@ -42,15 +42,17 @@ namespace Aton
   public:
     std::set<std::string> mLayers;
 
-  private:
     bool checkForCollision(const Collider2d& collider);
+
+    friend class Scene;
 
   private:
     std::shared_ptr<Texture> mTextureP;
     Transform2d* mTransformP;
     callback_t mCallback;
 
-    ci::gl::GlslProgRef mCollisionProg;
+    static ci::gl::GlslProgRef mCollisionProg;
+    static ci::gl::GlslProgRef makeCollisionProg();
 
     friend class CollisionDetector;
   };

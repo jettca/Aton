@@ -5,6 +5,8 @@
 #include <set>
 #include <functional>
 
+#include "Collider2d.hpp"
+
 namespace Aton
 {
   class CollisionDetector;
@@ -24,6 +26,9 @@ namespace Aton
 
     void addCamera(Camera& camera);
     GameObject* makeObject();
+    Collider2d* makeCollidableObject(const std::shared_ptr<Texture>& textureP,
+      Collider2d::callback_t callback = [](GameObject&) {},
+      std::set<std::string> layers = std::set<std::string>{});
 
     Camera* getCamera(size_t index = 0);
     Engine* getEngine() { return mEngineP; }
@@ -36,8 +41,12 @@ namespace Aton
     const std::unique_ptr<SpriteRenderer> mRendererP;
     std::unique_ptr<CollisionDetector> mCollisionsP;
     std::vector<Camera*> mCameras;
+
     std::vector<std::unique_ptr<GameObject>> mObjects;
     std::vector<std::unique_ptr<GameObject>> mNewObjects;
+
+    std::vector<std::unique_ptr<GameObject>> mCollidableObjects;
+    std::vector<std::unique_ptr<GameObject>> mNewCollidableObjects;
 
     friend class Engine;
   };

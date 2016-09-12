@@ -178,6 +178,7 @@ void CollisionDetector::checkForCollisions()
           collider->checkForCollision(*static_cast<Collider2d*>(data)))
         {
           auto transformP = collider->getTransform();
+
           transformP->position.x = lastFrameT.position.x;
           transformP->position.y = lastFrameT.position.y;
           transformP->rotation = lastFrameT.rotation;
@@ -189,6 +190,9 @@ void CollisionDetector::checkForCollisions()
       }, mTree.GetFatAABB(mProxies[c]));
     }
   }
+
+  // TODO: touching, sliding along objects
+  // TODO: frame timing optimization
 }
 
 void CollisionDetector::updateLastFrameTransforms()

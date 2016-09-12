@@ -4,6 +4,7 @@
 #include "Game.hpp"
 #include "SpriteRenderer.hpp"
 #include "Scene.hpp"
+#include "GameObject.hpp"
 
 #include <cinder/app/App.h>
 #include <cinder/gl/gl.h>
@@ -16,11 +17,23 @@ Sprite::Sprite()
   , mRendererP{ nullptr }
 {}
 
-Sprite::Sprite(GameObject& obj, const std::shared_ptr<Texture>& texP, float depth)
+Sprite::Sprite(Scene& scene, const std::shared_ptr<Texture>& texP,
+    const std::shared_ptr<Texture>& collisionTexP, float depth)
   : mTexP{ texP }
-  , mTransformP{ obj.addComponent<Transform2d>() }
-  , mRendererP{ obj.getScene()->getRenderer() }
+  , mCollisionTexP{ collisionTexP }
 {
+  if (mCollisionTexP)
+  {
+    auto colliderP = scene.makeCollidableObject(collisionTexP);
+    mTransformP = colliderP->getTransform();
+    mGameObjectP = colliderP->getObject();
+  }
+  else
+  {
+    mGameObjectP = scene.makeObject();
+    mTransformP = mGameObjectP->addComponent<Transform2d>();
+  }
+  mRendererP = scene.getRenderer();
   mTransformP->position.z = depth;
   mRendererP->addSprite(*this);
 }
@@ -28,9 +41,4 @@ Sprite::Sprite(GameObject& obj, const std::shared_ptr<Texture>& texP, float dept
 Sprite::~Sprite()
 {
   mRendererP->removeSprite(*this);
-}
-
-std::shared_ptr<Texture> Sprite::getTexture() const
-{
-  return mTexP;
 }

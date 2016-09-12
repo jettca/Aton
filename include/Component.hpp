@@ -7,11 +7,11 @@ namespace Aton
 
   class Component
   {
-  protected:
-    Component() {};
+  public:
+    GameObject* getObject() const { return mGameObjectP; }
 
   protected:
-    GameObject* getObject() const { return mGameObjectP; }
+    Component() {};
 
     virtual void initialize() {};
     virtual void update(float deltaTime) {};

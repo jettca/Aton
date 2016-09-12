@@ -1,26 +1,21 @@
 #pragma once
 
-#include "Component.hpp"
-
 #include <memory>
 
 namespace Aton
 {
   class Sprite;
+  class Scene;
 
-  class Character : public Component
+  class Character
   {
   public:
-    Character();
-
-    void initialize() override;
-
-    void update(float deltaTime) override;
+    Character(Scene& scene);
+    ~Character();
 
     const Sprite* getSprite() const;
 
   private:
-    float mSpeed;
     std::unique_ptr<Sprite> mSpriteP;
   };
 }

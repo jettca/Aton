@@ -27,9 +27,6 @@
     <ClCompile Include="..\src\AtonApp.cpp">
       <Filter>Engine\Source Files</Filter>
     </ClCompile>
-    <ClInclude Include="..\include\Character.hpp">
-      <Filter>Engine\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\Component.hpp">
       <Filter>Engine\Header Files</Filter>
     </ClInclude>
@@ -97,6 +94,12 @@
       <Filter>Engine\box2d</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Collider2d.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\CharacterControl.cpp">
+      <Filter>Engine\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Character.cpp">
       <Filter>Engine\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -179,6 +182,12 @@
     <ClInclude Include="..\include\Collider2d.hpp">
       <Filter>Engine\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\CharacterControl.hpp">
+      <Filter>Engine\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Character.hpp">
+      <Filter>Engine\Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resources.rc">
@@ -188,9 +197,6 @@
   <ItemGroup>
     <ClCompile Include="..\src\AtonApp.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Character.cpp">
-      <Filter>Engine\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Scene.cpp">
       <Filter>Engine\Source Files</Filter>

@@ -88,8 +88,8 @@ std::shared_ptr<LevelRenderer::Tile> LevelRenderer::loadTile(glm::ivec2 coord)
   try
   {
     auto objectP = getObject()->getScene()->makeObject();
-    tileP->sprite = std::make_unique<Sprite>(*objectP,
-      mTileManager->getAsset(mTileToFile(coord)), mTileDepth);
+    tileP->sprite = std::make_unique<Sprite>(*objectP->getScene(),
+      mTileManager->getAsset(mTileToFile(coord)), nullptr, mTileDepth);
   }
   catch (ci::app::AssetLoadExc&)
   {
@@ -102,7 +102,7 @@ std::shared_ptr<LevelRenderer::Tile> LevelRenderer::loadTile(glm::ivec2 coord)
   tileP->minCoord = shiftedCoords - mTileSize / 2.0f;
   tileP->maxCoord = shiftedCoords + mTileSize / 2.0f;
 
-  auto spriteTransformP = tileP->sprite->mTransformP;
+  auto spriteTransformP = tileP->sprite->getTransform();
   spriteTransformP->position.x = shiftedCoords.x;
   spriteTransformP->position.y = shiftedCoords.y;
   spriteTransformP->size = mTileSize;

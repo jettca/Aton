@@ -221,6 +221,7 @@
     <ClCompile Include="..\src\AtonApp.cpp" />
     <ClCompile Include="..\src\Camera.cpp" />
     <ClCompile Include="..\src\Character.cpp" />
+    <ClCompile Include="..\src\CharacterControl.cpp" />
     <ClCompile Include="..\src\Collider2d.cpp" />
     <ClCompile Include="..\src\CollisionDetector.cpp" />
     <ClCompile Include="..\src\Engine.cpp" />
@@ -248,6 +249,7 @@
     <ClInclude Include="..\include\AssetManager.hpp" />
     <ClInclude Include="..\include\Camera.hpp" />
     <ClInclude Include="..\include\Character.hpp" />
+    <ClInclude Include="..\include\CharacterControl.hpp" />
     <ClInclude Include="..\include\Collider2d.hpp" />
     <ClInclude Include="..\include\CollisionDetector.hpp" />
     <ClInclude Include="..\include\Component.hpp" />

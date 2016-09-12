@@ -1,6 +1,7 @@
 #include "SpriteRenderer.hpp"
 #include "Sprite.hpp"
 #include "Transform2d.hpp"
+#include "Texture.hpp"
 
 #include <cinder/app/App.h>
 #include <fstream>
@@ -87,9 +88,9 @@ void SpriteRenderer::draw()
     for (auto sprite : texData.second)
     {
       auto data = SpriteInstanceData{};
-      data.position = sprite->mTransformP->position;
-      data.rotation = sprite->mTransformP->rotation;
-      data.size = sprite->mTransformP->size;
+      data.position = sprite->getTransform()->position;
+      data.rotation = sprite->getTransform()->rotation;
+      data.size = sprite->getTransform()->size;
       spriteData.push_back(data);
     }
     
@@ -117,7 +118,7 @@ void SpriteRenderer::draw()
 
 void SpriteRenderer::addSprite(const Sprite& sprite)
 {
-  mTexToSprite[std::make_pair(sprite.mTransformP->position.z,
+  mTexToSprite[std::make_pair(sprite.getTransform()->position.z,
     sprite.getTexture()->mTexP)].push_back(&sprite);
 }
 

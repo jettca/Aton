@@ -17,23 +17,42 @@ Scene::~Scene()
 
 void Scene::update(float deltaTime)
 {
+  for (auto& objectP : mCollidableObjects)
+  {
+    objectP->update(deltaTime);
+  }
+
+  mCollisionsP->update();
+
   for (auto& objectP : mObjects)
   {
     objectP->update(deltaTime);
   }
 
+  mRendererP->draw();
+
   std::move(mNewObjects.begin(), mNewObjects.end(), std::back_inserter(mObjects));
   mNewObjects.clear();
-  
-  mCollisionsP->update();
 
-  mRendererP->draw();
+  std::move(mNewCollidableObjects.begin(), mNewCollidableObjects.end(),
+    std::back_inserter(mCollidableObjects));
+  mNewCollidableObjects.clear();
 }
 
 GameObject* Scene::makeObject()
 {
   mNewObjects.push_back(std::unique_ptr<GameObject>(new GameObject(getEngine(), this)));
   return mNewObjects.back().get();
+}
+
+Collider2d* Scene::makeCollidableObject(const std::shared_ptr<Texture>& textureP,
+  Collider2d::callback_t callback, std::set<std::string> layers)
+{
+  mNewCollidableObjects.push_back(
+    std::unique_ptr<GameObject>(new GameObject(getEngine(), this)));
+
+  return mNewCollidableObjects.back()->addComponent<Collider2d>(textureP,
+    callback, layers);
 }
 
 void Scene::addCamera(Camera& camera)

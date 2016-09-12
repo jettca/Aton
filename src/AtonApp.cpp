@@ -27,6 +27,7 @@ public:
 
   Scene mScene;
   Camera* mCam;
+  std::unique_ptr<Character> mCharacterP;
 
   int mWidth, mHeight;
 };
@@ -35,14 +36,14 @@ void MyGame::setup()
 {
   mEngine.setScene(mScene);
 
-  auto x = mScene.makeObject();
-  mSprite = std::make_shared<Sprite>( *x, mEngine.mSpriteManager.getAsset("thing.png") );
-  x->addComponent<Collider2d>(mSprite->getTexture(), mSprite->mTransformP);
-  mSprite->mTransformP->position = glm::vec3{ 3, 3, -5 };
+  auto textureP = mEngine.mSpriteManager.getAsset("thing.png");
+  mSprite = std::make_shared<Sprite>(mScene, textureP, textureP);
+  mSprite->getTransform()->position = glm::vec3{ 3, 3, -5 };
 
-  auto character = mScene.makeObject()->addComponent<Character>();
+  mCharacterP = std::make_unique<Character>(mScene);
+
   mCam = mScene.makeObject()->addComponent<Camera>(
-    glm::vec3{ 0, 0, -1 }, character->getSprite()->mTransformP);
+    glm::vec3{ 0, 0, -1 }, mCharacterP->getSprite()->getTransform());
   mScene.addCamera(*mCam);
 
   auto tileManager = std::make_shared<AssetManager<Texture>>("level");

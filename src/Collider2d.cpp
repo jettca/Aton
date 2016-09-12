@@ -13,26 +13,14 @@
 using namespace Aton;
 
 Collider2d::Collider2d(const std::shared_ptr<Texture>& textureP,
-  Transform2d* transformP, callback_t callback,
-  std::set<std::string> layers)
+  callback_t callback, std::set<std::string> layers)
   : mTextureP{ textureP }
-  , mTransformP{ transformP }
   , mCallback{ callback }
   , mLayers{ layers }
 {
-  try
-  {
-    mCollisionProg = ci::gl::GlslProg::create(
-      ci::gl::GlslProg::Format{}.compute(
-        ci::app::loadAsset("shaders/collision2d.glsl")));
-  }
-  catch (const std::exception& e)
-  {
-    std::ofstream out;
-    out.open("log.txt");
-    out << "Collision2D shader exception:\n" << e.what() << std::endl;
-    throw e;
-  }
+  // do this better
+  if (!mCollisionProg)
+    mCollisionProg = makeCollisionProg();
 }
 
 Collider2d::~Collider2d()
@@ -42,6 +30,7 @@ Collider2d::~Collider2d()
 
 void Collider2d::initialize()
 {
+  mTransformP = getObject()->addComponent<Transform2d>();
   getObject()->getScene()->getCollisionDetector()->addCollider(*this);
 }
 
@@ -118,4 +107,23 @@ std::shared_ptr<Texture> Collider2d::getTexture() const
 Transform2d* Collider2d::getTransform() const
 {
   return mTransformP;
+}
+
+ci::gl::GlslProgRef Collider2d::mCollisionProg = nullptr;
+
+ci::gl::GlslProgRef Collider2d::makeCollisionProg()
+{
+  try
+  {
+    return ci::gl::GlslProg::create(
+      ci::gl::GlslProg::Format{}.compute(
+        ci::app::loadAsset("shaders/collision2d.glsl")));
+  }
+  catch (const std::exception& e)
+  {
+    std::ofstream out;
+    out.open("log.txt");
+    out << "Collision2D shader exception:\n" << e.what() << std::endl;
+    throw e;
+  }
 }
