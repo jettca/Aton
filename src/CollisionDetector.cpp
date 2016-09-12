@@ -193,6 +193,7 @@ void CollisionDetector::checkForCollisions()
 
   // TODO: touching, sliding along objects
   // TODO: frame timing optimization
+  // TODO: simplify file structure
 }
 
 void CollisionDetector::updateLastFrameTransforms()
