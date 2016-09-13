@@ -16,11 +16,14 @@ namespace cinder
 namespace Aton
 {
   class Sprite;
-
-  using Tex2dConstRef = std::shared_ptr<const ci::gl::Texture2d>;
+  class Texture;
 
   class SpriteRenderer
   {
+  private:
+    using TextureRef = std::shared_ptr<Texture>;
+    using spritemap_t =
+      std::map<std::pair<float, TextureRef>, std::vector<const Sprite*>>;
   public:
     SpriteRenderer();
     void draw();
@@ -28,10 +31,12 @@ namespace Aton
     void removeSprite(const Sprite& sprite);
 
   private:
+    void updateTexToSprite();
+    void removeSprites();
     void createRectMesh();
 
   private:
-    std::map<std::pair<float, Tex2dConstRef>, std::vector<const Sprite*>> mTexToSprite;
+    spritemap_t mTexToSprite;
     std::set<const Sprite*> mToRemove;
 
     ci::geom::BufferLayout mSpriteLayout;

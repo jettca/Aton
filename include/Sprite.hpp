@@ -22,6 +22,8 @@ namespace Aton
 
   public:
     std::shared_ptr<Texture> getTexture() const { return mTexP; }
+    void setTexture(std::shared_ptr<Texture> texP) { mTexP = texP; }
+
     Transform2d* getTransform() const { return mTransformP; }
     GameObject* getObject() const { return mGameObjectP; }
 

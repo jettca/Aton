@@ -12,11 +12,11 @@ Scene::Scene()
   : mRendererP{ std::make_unique<SpriteRenderer>() }
   , mCollisionsP{ std::make_unique<CollisionDetector>() }
   , mEngineP{ nullptr }
+  , mFPSSpriteP{ std::make_unique<Sprite>(*this, nullptr) }
 {}
 
 Scene::~Scene()
 {}
-
 
 void Scene::update(float deltaTime)
 {
@@ -32,12 +32,7 @@ void Scene::update(float deltaTime)
     objectP->update(deltaTime);
   }
 
-  auto box = ci::TextBox{}.text(std::to_string(glm::round(1 / deltaTime)));
-  box = box.alignment(ci::TextBox::RIGHT).font(ci::Font("Times New Roman", 32)).size(glm::ivec2(100, ci::TextBox::GROW));
-  box = box.color(ci::ColorA(1, 1, 1, 1)).backgroundColor(ci::ColorA(0, 0, 0, 0));
-  auto tex = std::make_shared<Texture>(ci::gl::Texture2d::create(box.render()));
-  auto mSprite = std::make_shared<Sprite>(*this, tex);
-  mSprite->getTransform()->position = getCamera()->getPosition() - glm::vec3{ 1, 1, 5 };
+  renderFPS(deltaTime);
 
   mRendererP->draw();
 
@@ -75,4 +70,17 @@ Camera* Scene::getCamera(size_t index)
   if (index >= mCameras.size())
     return nullptr;
   return mCameras[index];
+}
+
+void Scene::renderFPS(float deltaTime)
+{
+  auto box = ci::TextBox{}.text(std::to_string(glm::round(1 / deltaTime)))
+    .alignment(ci::TextBox::RIGHT).font(ci::Font("Times New Roman", 32))
+    .size(glm::ivec2(100, ci::TextBox::GROW))
+    .color(ci::ColorA(1, 1, 1, 1)).backgroundColor(ci::ColorA(0, 0, 0, 0));
+
+  auto tex = std::make_shared<Texture>(ci::gl::Texture2d::create(box.render()));
+  mFPSSpriteP->setTexture(tex);
+
+  mFPSSpriteP->getTransform()->position = getCamera()->getPosition() - glm::vec3{ 1, 1, 5 };
 }

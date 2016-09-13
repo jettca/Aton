@@ -15,6 +15,7 @@ namespace Aton
   class Engine;
   class SpriteRenderer;
   class Transform2d;
+  class Sprite;
 
   class Scene
   {
@@ -34,7 +35,7 @@ namespace Aton
     Engine* getEngine() { return mEngineP; }
     SpriteRenderer* getRenderer() { return mRendererP.get(); }
     CollisionDetector* getCollisionDetector() { return mCollisionsP.get(); }
-    
+
   private:
     Engine* mEngineP;
 
@@ -49,5 +50,9 @@ namespace Aton
     std::vector<std::unique_ptr<GameObject>> mNewCollidableObjects;
 
     friend class Engine;
+
+  private:
+    void renderFPS(float deltaTime);
+    std::unique_ptr<Sprite> mFPSSpriteP;
   };
 }

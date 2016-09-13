@@ -12,7 +12,6 @@ namespace cinder
   namespace gl
   {
     class Texture2d;
-    using Texture2dRef = std::shared_ptr<Texture2d>;
   }
 }
 
@@ -22,12 +21,13 @@ namespace ci = cinder;
 
 namespace Aton
 {
+  using Tex2dConstRef = std::shared_ptr<const ci::gl::Texture2d>;
   class Texture
   {
   public:
     Texture(const ci::DataSourceRef& dataP);
-    Texture(ci::gl::Texture2dRef texP);
+    Texture(std::shared_ptr<ci::gl::Texture2d> texP);
 
-    ci::gl::Texture2dRef mTexP;
+    Tex2dConstRef mTexP;
   };
 }
