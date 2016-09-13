@@ -38,9 +38,12 @@ void LevelRenderer::update(float deltaTime)
   auto numTiles = tilesPerScreen();
   auto camCoord = mCam->getPosition();
 
-  if (numTiles != mPrevNumTilesPerScreen)
+  if ((numTiles - mPrevNumTilesPerScreen).length() > 0.1f)
   {
     mGridP->resize(numTiles * mTileSize);
+
+    // assumes things stay centered after resize
+    mGridP->shift((mPrevNumTilesPerScreen - numTiles) * mTileSize / 2.0f);
   }
 
   mGridP->shift(glm::vec2{ camCoord - mPrevCamCoord });

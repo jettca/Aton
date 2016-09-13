@@ -41,4 +41,4 @@ namespace Aton
     void resize() override;
   };
 }
-#define ATON_GAME(GAME) CINDER_APP(GAME, ci::app::RendererGl(Aton::Game::getOptions()))
+#define ATON_GAME(GAME, ...) CINDER_APP(GAME, ci::app::RendererGl(Aton::Game::getOptions()), ##__VA_ARGS__)

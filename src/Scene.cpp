@@ -1,8 +1,10 @@
 #include "Scene.hpp"
 #include "CollisionDetector.hpp"
 #include "SpriteRenderer.hpp"
+#include "Sprite.hpp"
 #include "Camera.hpp"
 #include "Transform2d.hpp"
+#include "Texture.hpp"
 
 using namespace Aton;
 
@@ -14,6 +16,7 @@ Scene::Scene()
 
 Scene::~Scene()
 {}
+
 
 void Scene::update(float deltaTime)
 {
@@ -28,6 +31,13 @@ void Scene::update(float deltaTime)
   {
     objectP->update(deltaTime);
   }
+
+  auto box = ci::TextBox{}.text(std::to_string(1 / deltaTime));
+  box = box.alignment(ci::TextBox::RIGHT).font(ci::Font("Times New Roman", 32)).size(glm::ivec2(100, ci::TextBox::GROW));
+  box = box.color(ci::ColorA(1, 1, 1, 1)).backgroundColor(ci::ColorA(0, 0, 0, 0));
+  auto tex = std::make_shared<Texture>(ci::gl::Texture2d::create(box.render()));
+  auto mSprite = std::make_shared<Sprite>(*this, tex);
+  mSprite->getTransform()->position = getCamera()->getPosition() - glm::vec3{ 1, 1, 5 };
 
   mRendererP->draw();
 

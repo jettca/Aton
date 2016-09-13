@@ -17,6 +17,7 @@ class MyGame : public Game
 {
 public:
   void setup() override;
+  static void prepareSettings(Settings *settings);
 
   FMOD::System *mSystem;
   FMOD::Sound *mSound;
@@ -63,8 +64,12 @@ void MyGame::setup()
 //  mSound->setMode(FMOD_LOOP_NORMAL);
 
 //  mSystem->playSound(FMOD_CHANNEL_FREE, mSound, false, &mChannel);
-
-
 }
 
-ATON_GAME(MyGame)
+void MyGame::prepareSettings(Settings* settings)
+{
+  settings->setWindowSize(1280, 720);
+  settings->setFrameRate(60);
+}
+
+ATON_GAME(MyGame, MyGame::prepareSettings)

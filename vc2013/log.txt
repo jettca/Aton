@@ -1,6 +1,0 @@
-Collision2D shader exception:
-COMPUTE: Compute shader failed to compile with the following errors:
-ERROR: 0:29: error(#162) Wrong operand types: no operation "*" exists that takes a left-hand operand of type "highp 3-component vector of vec3" and a right operand of type "highp 2-component vector of vec2" (or there is no acceptable conversion)
-ERROR: error(#273) 1 compilation errors.  No code generated
-
-
